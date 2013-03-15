@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Stack.fsi" />
     <Compile Include="Stack.fs" />
+    <Compile Include="BinarySearchTree.fsi" />
+    <Compile Include="BinarySearchTree.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
