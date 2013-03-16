@@ -9,4 +9,7 @@ module Stack =
     val peek : Stack<'T> -> 'T
     val tryPeek : Stack<'T> -> 'T option
 
-    val ofList : 'T list -> Stack<'T>
+    val ofList : 'T list -> 'T Stack
+
+    val toList : 'T Stack -> 'T list
+    val toSeq : 'T Stack -> 'T seq

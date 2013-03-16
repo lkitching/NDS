@@ -22,3 +22,18 @@ module Stack =
     | S(e, _) -> Some(e)
 
     let ofList l = List.foldBack (fun e s -> S(e, s)) l Empty
+
+    let toList stack =
+        let rec aux acc = function
+        | Empty -> acc
+        | S(e, s) -> aux (e::acc) s
+        aux [] stack |> List.rev
+
+    let rec toSeq stack =
+        seq {
+            match stack with
+            | Empty -> Seq.empty
+            | S(x, rest) ->
+                yield x
+                yield! (toSeq rest)
+        }
