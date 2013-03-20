@@ -48,6 +48,8 @@
     <Compile Include="BinarySearchTree.fs" />
     <Compile Include="LeftistHeap.fsi" />
     <Compile Include="LeftistHeap.fs" />
+    <Compile Include="BinomialHeap.fsi" />
+    <Compile Include="BinomialHeap.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
