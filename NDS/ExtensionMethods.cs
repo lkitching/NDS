@@ -18,5 +18,10 @@ namespace NDS
         {
             return GetOr(dict, key, default(TValue));
         }
+
+        public static IEnumerable<T> EmptyIfNull<T>(this IEnumerable<T> seq)
+        {
+            return seq ?? Enumerable.Empty<T>();
+        }
     }
 }
