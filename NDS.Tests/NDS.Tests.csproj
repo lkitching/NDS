@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArrayListTests.cs" />
+    <Compile Include="BinaryHeapTests.cs" />
     <Compile Include="ExtensionMethodsTests.cs" />
     <Compile Include="TrieTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

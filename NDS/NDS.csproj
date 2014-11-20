@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArrayList.cs" />
+    <Compile Include="BinaryHeap.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Require.cs" />
     <Compile Include="Trie.cs" />
