@@ -63,6 +63,9 @@
     <Compile Include="ArrayListTests.cs" />
     <Compile Include="BinaryHeapTests.cs" />
     <Compile Include="ExtensionMethodsTests.cs" />
+    <Compile Include="SinglyLinkedListCollectionTests.cs" />
+    <Compile Include="SinglyLinkedListNodeTests.cs" />
+    <Compile Include="SinglyLinkedListTests.cs" />
     <Compile Include="TrieTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

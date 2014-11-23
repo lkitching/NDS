@@ -43,6 +43,9 @@
     <Compile Include="BinaryHeap.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Require.cs" />
+    <Compile Include="SinglyLinkedList.cs" />
+    <Compile Include="SinglyLinkedListCollection.cs" />
+    <Compile Include="SinglyLinkedListNode.cs" />
     <Compile Include="Trie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
