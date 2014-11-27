@@ -25,7 +25,7 @@ namespace NDS.Tests
         {
             var r = new Random();
             int count = r.Next(1, 200);
-            var items = RandomInts(r).Take(count).ToArray();
+            var items = TestGen.RandomInts(r).Take(count).ToArray();
 
             var list = new SinglyLinkedListCollection<int>(items);
             CollectionAssert.AreEqual(items, list);
@@ -61,7 +61,7 @@ namespace NDS.Tests
             var count = 20;
             int first = -1;
 
-            foreach (int i in RandomInts(r).Take(count))
+            foreach (int i in TestGen.RandomInts(r).Take(count))
             {
                 list.AddFirst(i);
                 first = i;
@@ -99,7 +99,7 @@ namespace NDS.Tests
         {
             var random = new Random();
             var count = 1000;
-            var items = RandomInts(random).Take(count).ToArray();
+            var items = TestGen.RandomInts(random).Take(count).ToArray();
 
             var list = Create(items);
             Func<int, bool> p = i => i % 2 == 0;
@@ -117,17 +117,6 @@ namespace NDS.Tests
             return new SinglyLinkedListCollection<T>(items);
         }
 
-        private static IEnumerable<int> RandomInts(Random random)
-        {
-            return Generate(random, r => r.Next());
-        }
-
-        private static IEnumerable<T> Generate<T>(Random r, Func<Random, T> gen)
-        {
-            while (true)
-            {
-                yield return gen(r);
-            }
-        }
+        
     }
 }
