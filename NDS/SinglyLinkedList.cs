@@ -57,8 +57,7 @@ namespace NDS
         /// <returns>An enumerator for the nodes in this list.</returns>
         public IEnumerator<SinglyLinkedListNode<T>> GetEnumerator()
         {
-            var e = this.First == null ? Enumerable.Empty<SinglyLinkedListNode<T>>() : this.First.EnumerateFrom();
-            return e.GetEnumerator();
+            return this.First.EnumerateFrom().GetEnumerator();
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()

@@ -11,7 +11,7 @@ namespace NDS
     /// tracks the number of contained items.
     /// </summary>
     /// <typeparam name="T">The type of values in the collection.</typeparam>
-    public class SinglyLinkedListCollection<T> : IEnumerable<T>
+    public class SinglyLinkedListCollection<T> : IEnumerable<T>, IRemovable<T>
     {
         private SinglyLinkedListNode<T> first;
         private int count = 0;
@@ -69,10 +69,46 @@ namespace NDS
             return oldFirst.Value;
         }
 
+        /// <summary>Removes the first item in this list for which the given predicate returns true.</summary>
+        /// <param name="predicate">The predicate to test items against.</param>
+        /// <returns>True if a matching item was found.</returns>
+        public bool RemoveFirstWhere(Func<T, bool> predicate)
+        {
+            if (this.count == 0) return false;
+
+            Debug.Assert(this.first != null);
+
+            //remove head if it fails the predicate
+            if (predicate(this.first.Value))
+            {
+                this.first = this.first.Next;
+                this.count--;
+                return true;
+            }
+
+            var prev = this.first;
+            var current = this.first.Next;
+
+            while (current != null)
+            {
+                if (predicate(current.Value))
+                {
+                    prev.UnlinkNext();
+                    this.count--;
+                    return true;
+                }
+
+                prev = current;
+                current = current.Next;
+            }
+
+            return false;
+        }
+
         /// <summary>Removes all items from this list for with <paramref name="predicate"/> return true.</summary>
         /// <param name="predicate">The predicate to match items to be removed.</param>
         /// <returns>The number of removed items.</returns>
-        public int RemoveWhere(Func<T, bool> predicate)
+        public int RemoveAllWhere(Func<T, bool> predicate)
         {
             Contract.Requires(predicate != null);
 
@@ -137,10 +173,7 @@ namespace NDS
         /// <returns>An enumerator for the items in this list.</returns>
         public IEnumerator<T> GetEnumerator()
         {
-            for (var current = this.first; current != null; current = current.Next)
-            {
-                yield return current.Value;
-            }
+            return this.first.EnumerateFrom().Select(n => n.Value).GetEnumerator();
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()

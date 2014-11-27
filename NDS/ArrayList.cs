@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace NDS 
 {
-    public class ArrayList<T> : IEnumerable<T>
+    public class ArrayList<T> : IEnumerable<T>, IRemovable<T>
     {
         private static readonly int DEFAULT_CAPACITY = 10;
 
@@ -112,18 +112,7 @@ namespace NDS
             return false;
         }
 
-        public bool Remove(T item)
-        {
-            return this.Remove(item, EqualityComparer<T>.Default);
-        }
-
-        public bool Remove(T item, IEqualityComparer<T> comparer)
-        {
-            comparer = comparer ?? EqualityComparer<T>.Default;
-            return this.Remove(candidate => comparer.Equals(candidate, item));
-        }
-
-        public bool Remove(Func<T, bool> pred)
+        public bool RemoveFirstWhere(Func<T, bool> pred)
         {
             bool match = false;
             int i = 0;
@@ -153,18 +142,7 @@ namespace NDS
             return true;
         }
 
-        public int RemoveAll(T item)
-        {
-            return this.RemoveAll(item, EqualityComparer<T>.Default);
-        }
-
-        public int RemoveAll(T item, IEqualityComparer<T> comparer)
-        {
-            comparer = comparer ?? EqualityComparer<T>.Default;
-            return this.RemoveAll(candidate => comparer.Equals(candidate, item));
-        }
-
-        public int RemoveAll(Func<T, bool> pred)
+        public int RemoveAllWhere(Func<T, bool> pred)
         {
             if (pred == null) throw new ArgumentNullException("pred");
 

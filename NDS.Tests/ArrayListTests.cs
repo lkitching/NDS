@@ -88,7 +88,7 @@ namespace NDS.Tests
         public void ShouldRemoveItem()
         {
             var sut = new ArrayList<int> { 1, 2, 3 };
-            bool removed = sut.Remove(2);
+            bool removed = sut.RemoveFirst(2);
 
             Assert.IsTrue(removed, "Failed to remove contained item");
         }
@@ -97,7 +97,7 @@ namespace NDS.Tests
         public void RemoveShouldDecrementCount()
         {
             var sut = new ArrayList<int> { 1, 2, 3 };
-            sut.Remove(1);
+            sut.RemoveFirst(1);
 
             CollectionAssert.AreEqual(new[] { 2, 3 }, sut);
             Assert.AreEqual(2, sut.Count, "Failed to decrement count after Remove");
@@ -107,7 +107,7 @@ namespace NDS.Tests
         public void ShouldRemoveItemUsingComparer()
         {
             var sut = new ArrayList<string> { "a", "b", "c", "B" };
-            sut.Remove("B", StringComparer.OrdinalIgnoreCase);
+            sut.RemoveFirst("B", StringComparer.OrdinalIgnoreCase);
 
             //should only remove first 'b' (case-insensitively)
             CollectionAssert.AreEqual(new[] { "a", "c", "B" }, sut);
@@ -117,7 +117,7 @@ namespace NDS.Tests
         public void ShouldRemoveItemUsingPredicate()
         {
             var sut = new ArrayList<int> { 1, 2, 3, 4 };
-            sut.Remove(i => i % 2 == 0);
+            sut.RemoveFirstWhere(i => i % 2 == 0);
 
             //should only remove first even number
             CollectionAssert.AreEqual(new[] { 1, 3, 4 }, sut);
@@ -147,7 +147,7 @@ namespace NDS.Tests
         public void ShouldRemoveAllUsingPredicate()
         {
             var sut = new ArrayList<int>(Enumerable.Range(1, 10));
-            int removed = sut.RemoveAll(i => i > 5);
+            int removed = sut.RemoveAllWhere(i => i > 5);
 
             Assert.AreEqual(5, removed, "Unexpected number of removed items");
             CollectionAssert.AreEqual(Enumerable.Range(1, 5), sut);

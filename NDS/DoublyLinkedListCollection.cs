@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 
@@ -7,7 +8,7 @@ namespace NDS
 {
     /// <summary>Collection which is represented as a doubly-linked list which gives efficient access to and insertion at the front and back.</summary>
     /// <typeparam name="T">The type of items in this collection.</typeparam>
-    public class DoublyLinkedListCollection<T> : IEnumerable<T>
+    public class DoublyLinkedListCollection<T> : IEnumerable<T>, IRemovable<T>
     {
         private DoublyLinkedListNode<T> first;
         private DoublyLinkedListNode<T> last;
@@ -129,6 +130,13 @@ namespace NDS
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
+        }
+
+        /// <summary>Enumerates the items in this list in reverse.</summary>
+        /// <returns>A reverse enumerator for the items in this list.</returns>
+        public IEnumerable<T> EnumerateBack()
+        {
+            return this.last.EnumerateBackFrom().Select(n => n.Value);
         }
 
         private void RemoveNode(DoublyLinkedListNode<T> node)

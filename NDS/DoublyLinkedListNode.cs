@@ -4,7 +4,7 @@ namespace NDS
 {
     /// <summary>Represents a linked list node with a predecessor and successor.</summary>
     /// <typeparam name="T">The value of this node.</typeparam>
-    public class DoublyLinkedListNode<T>
+    public class DoublyLinkedListNode<T> : IHasNext<DoublyLinkedListNode<T>>, IHasPrevious<DoublyLinkedListNode<T>>
     {
         /// <summary>Creates a new node with the given value and no predecessor or successor.</summary>
         /// <param name="value">The value for this node.</param>
@@ -29,7 +29,6 @@ namespace NDS
 
             next.Previous = this;
             this.Next = next;
-
         }
 
         /// <summary>

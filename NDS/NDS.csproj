@@ -44,7 +44,12 @@
     <Compile Include="DoublyLinkedListCollection.cs" />
     <Compile Include="DoublyLinkedListNode.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="IHasNext.cs" />
+    <Compile Include="IHasPrevious.cs" />
+    <Compile Include="IRemovable.cs" />
+    <Compile Include="Predicates.cs" />
     <Compile Include="Require.cs" />
+    <Compile Include="Seq.cs" />
     <Compile Include="SinglyLinkedList.cs" />
     <Compile Include="SinglyLinkedListCollection.cs" />
     <Compile Include="SinglyLinkedListNode.cs" />

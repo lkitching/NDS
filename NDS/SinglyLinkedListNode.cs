@@ -9,7 +9,7 @@ namespace NDS
     /// to the next node can be modified using the member functions.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class SinglyLinkedListNode<T>
+    public class SinglyLinkedListNode<T> : IHasNext<SinglyLinkedListNode<T>>
     {
         /// <summary>Creates a new node with the given value and no successor.</summary>
         /// <param name="value">The value for this node.</param>
@@ -68,16 +68,6 @@ namespace NDS
             if (this.Next != null)
             {
                 this.Next = this.Next.Next;
-            }
-        }
-
-        /// <summary>Gets a sequence containing this node and all successors.</summary>
-        /// <returns>A sequence of this node followed by all successors.</returns>
-        public IEnumerable<SinglyLinkedListNode<T>> EnumerateFrom()
-        {
-            for (var current = this; current != null; current = current.Next)
-            {
-                yield return current;
             }
         }
 

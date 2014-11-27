@@ -65,6 +65,7 @@
     <Compile Include="DoublyLinkedListCollectionTests.cs" />
     <Compile Include="DoublyLinkedListNodeTests.cs" />
     <Compile Include="ExtensionMethodsTests.cs" />
+    <Compile Include="SeqTests.cs" />
     <Compile Include="SinglyLinkedListCollectionTests.cs" />
     <Compile Include="SinglyLinkedListNodeTests.cs" />
     <Compile Include="SinglyLinkedListTests.cs" />

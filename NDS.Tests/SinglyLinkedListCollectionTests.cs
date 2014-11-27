@@ -80,6 +80,34 @@ namespace NDS.Tests
             Assert.Throws<InvalidOperationException>(() => { var _ = list.RemoveFirst(); });
         }
 
+        /// <summary>Tests the first matching item is removed.</summary>
+        [Test]
+        public void ShouldRemoveFirstMatching()
+        {
+            var list = Create(1, 3, 6, -1);
+            bool removed = list.RemoveFirstWhere(i => i > 5);
+
+            Assert.IsTrue(removed, "Failed to remove matching item");
+            Assert.AreEqual(3, list.Count, "Failed to adjust count");
+            CollectionAssert.AreEqual(new[] { 1, 3, -1 }, list, "Unexpected remaining item");
+        }
+
+        /// <summary>Tests RemoveFirst returns false if no items match the predicate.</summary>
+        [Test]
+        public void RemoveFirstWhereShouldReturnFalseIfNoneMatches()
+        {
+            var r = new Random();
+            int count = r.Next(10, 50);
+            var items = Enumerable.Range(0, count);
+            var list = Create(items.ToArray());
+
+            bool removed = list.RemoveFirstWhere(i => i >= count);
+
+            Assert.IsFalse(removed, "Removed non-matching item");
+            Assert.AreEqual(count, list.Count, "Adjusted count");
+            CollectionAssert.AreEqual(items, list, "Unexpected items in list");
+        }
+
         /// <summary>Test all elements are removed from the list if they all pass the removal predicate.</summary>
         [Test]
         public void ShouldRemoveAll()
@@ -87,7 +115,7 @@ namespace NDS.Tests
             int maxEx = 10;
             var list = Create<int>(Enumerable.Range(0, maxEx).ToArray());
 
-            int removed = list.RemoveWhere(i => i < maxEx);
+            int removed = list.RemoveAllWhere(i => i < maxEx);
 
             Assert.AreEqual(maxEx, removed, "Unexpected number of elements removed");
             Assert.AreEqual(0, list.Count, "Failed to adjust count");
@@ -104,7 +132,7 @@ namespace NDS.Tests
             var list = Create(items);
             Func<int, bool> p = i => i % 2 == 0;
 
-            int removed = list.RemoveWhere(p);
+            int removed = list.RemoveAllWhere(p);
             int expectedRemoved = items.Count(p);
 
             CollectionAssert.AreEqual(items.Where(i => !p(i)), list, "Unexpected items in the collection");
@@ -116,7 +144,5 @@ namespace NDS.Tests
         {
             return new SinglyLinkedListCollection<T>(items);
         }
-
-        
     }
 }
