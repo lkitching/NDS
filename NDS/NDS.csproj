@@ -43,10 +43,13 @@
     <Compile Include="BinaryHeap.cs" />
     <Compile Include="DoublyLinkedListCollection.cs" />
     <Compile Include="DoublyLinkedListNode.cs" />
+    <Compile Include="DynamicStack.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="FixedStack.cs" />
     <Compile Include="IHasNext.cs" />
     <Compile Include="IHasPrevious.cs" />
     <Compile Include="IRemovable.cs" />
+    <Compile Include="IStack.cs" />
     <Compile Include="Predicates.cs" />
     <Compile Include="Require.cs" />
     <Compile Include="Seq.cs" />
