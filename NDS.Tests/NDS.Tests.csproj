@@ -64,9 +64,12 @@
     <Compile Include="BinaryHeapTests.cs" />
     <Compile Include="DoublyLinkedListCollectionTests.cs" />
     <Compile Include="DoublyLinkedListNodeTests.cs" />
+    <Compile Include="DynamicLinkedQueueTests.cs" />
     <Compile Include="DynamicStackTests.cs" />
     <Compile Include="ExtensionMethodsTests.cs" />
+    <Compile Include="FixedArrayQueueTests.cs" />
     <Compile Include="FixedStackTests.cs" />
+    <Compile Include="QueueTests.cs" />
     <Compile Include="SeqTests.cs" />
     <Compile Include="SinglyLinkedListCollectionTests.cs" />
     <Compile Include="SinglyLinkedListNodeTests.cs" />
