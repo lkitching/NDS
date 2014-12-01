@@ -69,6 +69,7 @@
     <Compile Include="ExtensionMethodsTests.cs" />
     <Compile Include="FixedArrayQueueTests.cs" />
     <Compile Include="FixedStackTests.cs" />
+    <Compile Include="MaybeTests.cs" />
     <Compile Include="QueueTests.cs" />
     <Compile Include="SeqTests.cs" />
     <Compile Include="SinglyLinkedListCollectionTests.cs" />
