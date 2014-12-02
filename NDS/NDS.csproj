@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="ArrayList.cs" />
     <Compile Include="BinaryHeap.cs" />
+    <Compile Include="ClosedAddressingHashTable.cs" />
     <Compile Include="DoublyLinkedListCollection.cs" />
     <Compile Include="DoublyLinkedListNode.cs" />
     <Compile Include="DynamicLinkedQueue.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="FixedStack.cs" />
     <Compile Include="IHasNext.cs" />
     <Compile Include="IHasPrevious.cs" />
+    <Compile Include="IMap.cs" />
     <Compile Include="IQueue.cs" />
     <Compile Include="IRemovable.cs" />
     <Compile Include="IStack.cs" />

@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="ArrayListTests.cs" />
     <Compile Include="BinaryHeapTests.cs" />
+    <Compile Include="ClosedAddressingHashTableTests.cs" />
     <Compile Include="DoublyLinkedListCollectionTests.cs" />
     <Compile Include="DoublyLinkedListNodeTests.cs" />
     <Compile Include="DynamicLinkedQueueTests.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="ExtensionMethodsTests.cs" />
     <Compile Include="FixedArrayQueueTests.cs" />
     <Compile Include="FixedStackTests.cs" />
+    <Compile Include="MapTests.cs" />
     <Compile Include="MaybeTests.cs" />
     <Compile Include="QueueTests.cs" />
     <Compile Include="SeqTests.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="SinglyLinkedListNodeTests.cs" />
     <Compile Include="SinglyLinkedListTests.cs" />
     <Compile Include="StackTests.cs" />
+    <Compile Include="TestAssert.cs" />
     <Compile Include="TestGen.cs" />
     <Compile Include="TrieTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
