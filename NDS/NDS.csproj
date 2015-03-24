@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="ArrayList.cs" />
     <Compile Include="BinaryHeap.cs" />
+    <Compile Include="BinarySearchTree.cs" />
     <Compile Include="ClosedAddressingHashTable.cs" />
     <Compile Include="DoublyLinkedListCollection.cs" />
     <Compile Include="DoublyLinkedListNode.cs" />

@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="ArrayListTests.cs" />
     <Compile Include="BinaryHeapTests.cs" />
+    <Compile Include="BinarySearchTreeTests.cs" />
     <Compile Include="ClosedAddressingHashTableTests.cs" />
     <Compile Include="DoublyLinkedListCollectionTests.cs" />
     <Compile Include="DoublyLinkedListNodeTests.cs" />

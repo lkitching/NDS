@@ -168,6 +168,13 @@ namespace NDS.Tests
         }
 
         [Test]
+        public void Enumeration_Should_Be_Empty_For_Empty_Map()
+        {
+            var map = Create();
+            CollectionAssert.IsEmpty(map);
+        }
+
+        [Test]
         public void Should_Enumerate_Key_Value_Pairs()
         {
             var keys = TestGen.NRandomInts(200, 300).Distinct();
