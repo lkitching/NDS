@@ -32,7 +32,7 @@ module Stack =
     let rec toSeq stack =
         seq {
             match stack with
-            | Empty -> Seq.empty
+            | Empty -> ()
             | S(x, rest) ->
                 yield x
                 yield! (toSeq rest)
