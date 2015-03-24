@@ -12,7 +12,7 @@ namespace NDS
     {
         private readonly IComparer<TKey> comp;
         private int count = 0;
-        private Node root = null;
+        private BSTNode<TKey, TValue> root = null;
 
         /// <summary>Creates an empty tree with the default comparer for keys.</summary>
         public BinarySearchTree()
@@ -33,7 +33,7 @@ namespace NDS
         /// <returns>The value mapped to the given key if it exists in this tree otherwise None.</returns>
         public Maybe<TValue> Get(TKey key)
         {
-            Node current = this.root;
+            var current = this.root;
             while (current != null)
             {
                 int c = this.comp.Compare(key, current.Key);
@@ -61,7 +61,7 @@ namespace NDS
         {
             if (this.root == null)
             {
-                this.root = new Node(key, value);
+                this.root = BSTNode.Create(key, value);
                 this.count++;
                 return true;
             }
@@ -81,7 +81,7 @@ namespace NDS
                         //insert left if null otherwise continue search
                         if (current.Left == null)
                         {
-                            current.Left = new Node(key, value);
+                            current.Left = BSTNode.Create(key, value);
                             this.count++;
                             return true;
                         }
@@ -95,7 +95,7 @@ namespace NDS
                         //insert right if null otherwise continue search
                         if (current.Right == null)
                         {
-                            current.Right = new Node(key, value);
+                            current.Right = BSTNode.Create(key, value);
                             this.count++;
                             return true;
                         }
@@ -114,7 +114,7 @@ namespace NDS
         {
             if (this.root == null)
             {
-                this.root = new Node(key, value);
+                this.root = BSTNode.Create(key, value);
                 this.count++;
             }
             else
@@ -133,7 +133,7 @@ namespace NDS
                         //insert left if null otherwise continue
                         if (current.Left == null)
                         {
-                            current.Left = new Node(key, value);
+                            current.Left = BSTNode.Create(key, value);
                             this.count++;
                             return;
                         }
@@ -146,7 +146,7 @@ namespace NDS
                     {
                         if (current.Right == null)
                         {
-                            current.Right = new Node(key, value);
+                            current.Right = BSTNode.Create(key, value);
                             this.count++;
                             return;
                         }
@@ -159,7 +159,7 @@ namespace NDS
             }
         }
 
-        private static Node DeleteRoot(Node root)
+        private static BSTNode<TKey, TValue> DeleteRoot(BSTNode<TKey, TValue> root)
         {
             Debug.Assert(root != null);
 
@@ -182,7 +182,7 @@ namespace NDS
                 current = current.Left;
             }
 
-            var newRoot = new Node(current.Key, current.Value) { Left = root.Left, Right = root.Right };
+            var newRoot = new BSTNode<TKey, TValue>(current.Key, current.Value) { Left = root.Left, Right = root.Right };
             parent.Left = current.Right;
             return newRoot;
         }
@@ -192,15 +192,15 @@ namespace NDS
         /// <returns>Whether the key existed in this tree before the delete operaiton.</returns>
         public bool Delete(TKey key)
         {
-            Node current = this.root;
-            Node parent = null;
+            BSTNode<TKey, TValue> current = this.root;
+            BSTNode<TKey, TValue> parent = null;
 
             while (current != null)
             {
                 int c = this.comp.Compare(key, current.Key);
                 if (c == 0)
                 {
-                    Node newRoot = DeleteRoot(current);
+                    var newRoot = DeleteRoot(current);
                     if (parent == null)
                     {
                         Debug.Assert(current == this.root);
@@ -251,97 +251,12 @@ namespace NDS
         /// <returns>An enumerator for the in-order traversal of this tree.</returns>
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            if (this.root == null)
-            {
-                Debug.Assert(this.Count == 0);
-                yield break;
-            }
-
-            var parents = new DynamicStack<NodeTraversal>();
-            var current = new NodeTraversal(this.root);
-            parents.Push(current);
-
-            while (current != null)
-            {
-                if (current.VisitedRightSubtree)
-                {
-                    Debug.Assert(current.VisitedLeftSubtree, "Visited right subtree before left");
-
-                    //move back to parent if one exists
-                    if (parents.Count > 0)
-                    {
-                        current = parents.Pop();
-                    }
-                    else
-                    {
-                        //reached root
-                        break;
-                    }
-                }
-                else if (current.VisitedLeftSubtree)
-                {
-                    //finished visiting left subtree
-                    yield return current.Pair;
-
-                    current.VisitedRightSubtree = true;
-
-                    //visit right subtree if it exists
-                    var right = current.Node.Right;
-                    if (right != null)
-                    {
-                        parents.Push(current);
-                        current = new NodeTraversal(right);
-                    }
-                }
-                else
-                {
-                    //visit left subtree
-                    current.VisitedLeftSubtree = true;
-                    var left = current.Node.Left;
-
-                    if (left != null)
-                    {
-                        parents.Push(current);
-                        current = new NodeTraversal(left);
-                    }
-                }
-            }
+            return BSTTraversal.InOrder(this.root).GetEnumerator();
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
-        }
-
-        private class Node
-        {
-            public Node(TKey key, TValue value)
-            {
-                this.Key = key;
-                this.Value = value;
-            }
-
-            public TKey Key { get; private set; }
-            public TValue Value { get; set; }
-            public Node Left { get; set; }
-            public Node Right { get; set; }
-        }
-
-        private class NodeTraversal
-        {
-            public NodeTraversal(Node node)
-            {
-                Contract.Requires(node != null);
-                this.Node = node;
-            }
-
-            public bool VisitedLeftSubtree { get; set; }
-            public bool VisitedRightSubtree { get; set; }
-            public Node Node { get; private set; }
-            public KeyValuePair<TKey, TValue> Pair
-            {
-                get { return new KeyValuePair<TKey, TValue>(this.Node.Key, this.Node.Value); }
-            }
         }
     }
 }
