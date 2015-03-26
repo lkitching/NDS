@@ -59,104 +59,110 @@ namespace NDS
         /// <see cref="IMap{TKey, TValue}.TryAdd"/>
         public bool TryAdd(TKey key, TValue value)
         {
-            if (this.root == null)
+            var pendingInsert = FindInsertFor(key, value);
+            if (pendingInsert.Item1 == InsertType.SetValue)
             {
-                this.root = BSTNode.Create(key, value);
-                this.count++;
-                return true;
+                //key already exists so don't update
+                return false;
             }
             else
             {
-                var current = this.root;
-                while (current != null)
-                {
-                    int comp = this.comp.Compare(key, current.Key);
-                    if (comp == 0)
-                    {
-                        //key exists
-                        return false;
-                    }
-                    else if (comp < 0)
-                    {
-                        //insert left if null otherwise continue search
-                        if (current.Left == null)
-                        {
-                            current.Left = BSTNode.Create(key, value);
-                            this.count++;
-                            return true;
-                        }
-                        else
-                        {
-                            current = current.Left;
-                        }
-                    }
-                    else
-                    {
-                        //insert right if null otherwise continue search
-                        if (current.Right == null)
-                        {
-                            current.Right = BSTNode.Create(key, value);
-                            this.count++;
-                            return true;
-                        }
-                        else
-                        {
-                            current = current.Right;
-                        }
-                    }
-                }
-                return false;
+                ApplyInsert(pendingInsert.Item1, key, value, pendingInsert.Item2);
+                return true;
             }
         }
 
         /// <see cref="IMap{TKey, TValue}.Assoc"/>
         public void Assoc(TKey key, TValue value)
         {
-            if (this.root == null)
+            var pendingInsert = FindInsertFor(key, value);
+            ApplyInsert(pendingInsert.Item1, key, value, pendingInsert.Item2);
+        }
+
+        /// <summary>Applies an update to associate a key and value in this tree.</summary>
+        /// <param name="type">The type of update to perform.</param>
+        /// <param name="key">The key to associate in this tree.</param>
+        /// <param name="value">The value to associate with the key.</param>
+        /// <param name="parent">
+        /// The affected node, or null if this tree is empty. In that case <paramref name="type"/>
+        /// should be Root.
+        /// </param>
+        private void ApplyInsert(InsertType type, TKey key, TValue value, BSTNode<TKey, TValue> parent)
+        {
+            switch (type)
             {
-                this.root = BSTNode.Create(key, value);
-                this.count++;
+                case InsertType.SetValue:
+                    parent.Value = value;
+                    //return immediately and don't update count
+                    return;
+
+                case InsertType.Root:
+                    Debug.Assert(parent == null);
+                    this.root = BSTNode.Create(key, value);
+                    break;
+
+                case InsertType.LeftChild:
+                    Debug.Assert(parent.Left == null);
+                    parent.Left = BSTNode.Create(key, value);
+                    break;
+
+                case InsertType.RightChild:
+                    Debug.Assert(parent.Right == null);
+                    parent.Right = BSTNode.Create(key, value);
+                    break;
             }
-            else
+
+            this.count++;
+        }
+
+        /// <summary>Calculates how to perform an update to associated the given key and value in this tree.</summary>
+        /// <param name="key">The key to add.</param>
+        /// <param name="value">The value to add.</param>
+        /// <returns>A pair containing the affected node and the type of modification to apply to it.</returns>
+        private Tuple<InsertType, BSTNode<TKey, TValue>> FindInsertFor(TKey key, TValue value)
+        {
+            var current = this.root;
+
+            while (current != null)
             {
-                var current = this.root;
-                while (current != null)
+                var c = this.comp.Compare(key, current.Key);
+                if (c == 0)
                 {
-                    var c = this.comp.Compare(key, current.Key);
-                    if (c == 0)
+                    //key already exists so update value of current node
+                    return Tuple.Create(InsertType.SetValue, current);
+                }
+                else if (c < 0)
+                {
+                    //insert in left subtree
+                    if (current.Left == null)
                     {
-                        current.Value = value;
-                        return;
+                        return Tuple.Create(InsertType.LeftChild, current);
                     }
-                    else if (c < 0)
+                    else { current = current.Left; }
+                }
+                else
+                {
+                    //insert in right subtree
+                    if (current.Right == null)
                     {
-                        //insert left if null otherwise continue
-                        if (current.Left == null)
-                        {
-                            current.Left = BSTNode.Create(key, value);
-                            this.count++;
-                            return;
-                        }
-                        else
-                        {
-                            current = current.Left;
-                        }
+                        return Tuple.Create(InsertType.RightChild, current);
                     }
-                    else
-                    {
-                        if (current.Right == null)
-                        {
-                            current.Right = BSTNode.Create(key, value);
-                            this.count++;
-                            return;
-                        }
-                        else
-                        {
-                            current = current.Right;
-                        }
-                    }
+                    else { current = current.Right; }
                 }
             }
+
+            //should only get here if tree is empty
+            Debug.Assert(current == null);
+            Debug.Assert(this.count == 0);
+            return Tuple.Create(InsertType.Root, current);
+        }
+
+        private enum InsertType
+        {
+            Root,
+            LeftChild,
+            RightChild,
+            SetValue
         }
 
         private static BSTNode<TKey, TValue> DeleteRoot(BSTNode<TKey, TValue> root)
