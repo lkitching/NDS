@@ -34,27 +34,7 @@ namespace NDS
         /// <returns>The value mapped to the given key if it exists in this tree otherwise None.</returns>
         public Maybe<TValue> Get(TKey key)
         {
-            var current = this.root;
-            while (current != null)
-            {
-                int c = this.comp.Compare(key, current.Key);
-                if (c == 0)
-                {
-                    return Maybe.Some(current.Value);
-                }
-                else if (c < 0)
-                {
-                    //search left subtree
-                    current = current.Left;
-                }
-                else
-                {
-                    //search right subtree
-                    current = current.Right;
-                }
-            }
-
-            return Maybe.None<TValue>();
+            return BSTNode.Get(this.root, key, this.comp);
         }
 
         /// <see cref="IMap{TKey, TValue}.TryAdd"/>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 namespace NDS
 {
     /// <summary>Represents a node in a binary search tree.</summary>
@@ -50,6 +51,42 @@ namespace NDS
         public static BSTNode<TKey, TValue> Create<TKey, TValue>(TKey key, TValue value, BSTNode<TKey, TValue> left = null, BSTNode<TKey, TValue> right = null)
         {
             return new BSTNode<TKey, TValue>(key, value) { Left = left, Right = right };
+        }
+
+        /// <summary>Tries to find the value associated with the given key in a binary search tree.</summary>
+        /// <typeparam name="TNode"></typeparam>
+        /// <typeparam name="TKey">Key type of the search tree.</typeparam>
+        /// <typeparam name="TValue">The value type.</typeparam>
+        /// <param name="root">The root node of the tree. This can be null if the tree is empty.</param>
+        /// <param name="key">The key to search for.</param>
+        /// <param name="keyComparer">Comparer for keys in the search tree.</param>
+        /// <returns>The value associated with <paramref name="key"/> in the tree with root <paramref name="root"/> if it exists, otherwise None.</returns>
+        public static Maybe<TValue> Get<TNode, TKey, TValue>(IBSTNode<TNode, TKey, TValue> root, TKey key, IComparer<TKey> keyComparer)
+            where TNode : IBSTNode<TNode, TKey, TValue>
+        {
+            Contract.Requires(keyComparer != null);
+
+            var current = root;
+            while (current != null)
+            {
+                int c = keyComparer.Compare(key, current.Key);
+                if (c == 0)
+                {
+                    return Maybe.Some(current.Value);
+                }
+                else if (c < 0)
+                {
+                    //search left subtree
+                    current = current.Left;
+                }
+                else
+                {
+                    //search right subtree
+                    current = current.Right;
+                }
+            }
+
+            return Maybe.None<TValue>();
         }
 
         /// <summary>Returns a key-value pair representing a binary search tree node.</summary>
