@@ -1,10 +1,21 @@
 ﻿using System.Collections.Generic;
 namespace NDS
 {
+    /// <summary>Represents a node in a binary search tree.</summary>
+    /// <typeparam name="TNode">Type of child nodes.</typeparam>
+    /// <typeparam name="TKey">Key type for the node.</typeparam>
+    /// <typeparam name="TValue">Value type for the node.</typeparam>
+    public interface IBSTNode<TNode, out TKey, out TValue> : IBinaryNode<TNode>
+        where TNode : IBSTNode<TNode, TKey, TValue>
+    {
+        TKey Key { get; }
+        TValue Value { get; }
+    }
+
     /// <summary>Represents a binary tree node with the given key and value.</summary>
     /// <typeparam name="TKey">Key type for this node.</typeparam>
     /// <typeparam name="TValue">Value type for this node.</typeparam>
-    public class BSTNode<TKey, TValue>
+    public class BSTNode<TKey, TValue> : IBSTNode<BSTNode<TKey, TValue>, TKey, TValue>
     {
         public BSTNode(TKey key, TValue value)
         {
@@ -23,13 +34,6 @@ namespace NDS
 
         /// <summary>Gets and sets the right child of this node. Can be null.</summary>
         public BSTNode<TKey, TValue> Right { get; set; }
-
-        /// <summary>Returns a key-value pair representing this node.</summary>
-        /// <returns>A key-value pair for this node.</returns>
-        public KeyValuePair<TKey, TValue> ToKeyValuePair()
-        {
-            return new KeyValuePair<TKey, TValue>(this.Key, this.Value);
-        }
     }
 
     /// <summary>Utility class for binary search tree nodes.</summary>
@@ -46,6 +50,15 @@ namespace NDS
         public static BSTNode<TKey, TValue> Create<TKey, TValue>(TKey key, TValue value, BSTNode<TKey, TValue> left = null, BSTNode<TKey, TValue> right = null)
         {
             return new BSTNode<TKey, TValue>(key, value) { Left = left, Right = right };
+        }
+
+        /// <summary>Returns a key-value pair representing a binary search tree node.</summary>
+        /// <param name="node">The node.</param>
+        /// <returns>A key-value pair for <paramref name="node"/>.</returns>
+        public static KeyValuePair<TKey, TValue> ToKeyValuePair<TNode, TKey, TValue>(this IBSTNode<TNode, TKey, TValue> node)
+            where TNode : IBSTNode<TNode, TKey, TValue>
+        {
+            return new KeyValuePair<TKey, TValue>(node.Key, node.Value);
         }
     }
 }

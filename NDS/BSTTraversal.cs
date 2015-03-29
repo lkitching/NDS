@@ -12,7 +12,8 @@ namespace NDS
         /// <typeparam name="TValue">Value type of the tree.</typeparam>
         /// <param name="root">The root of the search tree.</param>
         /// <returns>Sequence containing the in-order traversal of the tree.</returns>
-        public static IEnumerable<KeyValuePair<TKey, TValue>> InOrder<TKey, TValue>(BSTNode<TKey, TValue> root)
+        public static IEnumerable<TNode> InOrder<TNode>(TNode root)
+            where TNode : IBinaryNode<TNode>
         {
             return Traverse(root, TraversalType.InOrder);
         }
@@ -22,7 +23,8 @@ namespace NDS
         /// <typeparam name="TValue">Value type of the tree.</typeparam>
         /// <param name="root">The root of the search tree.</param>
         /// <returns>Sequence containing the pre-order traversal of the tree.</returns>
-        public static IEnumerable<KeyValuePair<TKey, TValue>> PreOrder<TKey, TValue>(BSTNode<TKey, TValue> root)
+        public static IEnumerable<TNode> PreOrder<TNode>(TNode root)
+            where TNode : IBinaryNode<TNode>
         {
             return Traverse(root, TraversalType.PreOrder);
         }
@@ -32,20 +34,22 @@ namespace NDS
         /// <typeparam name="TValue">Value type of the tree.</typeparam>
         /// <param name="root">The root of the search tree.</param>
         /// <returns>Sequence containing the post-order traversal of the tree.</returns>
-        public static IEnumerable<KeyValuePair<TKey, TValue>> PostOrder<TKey, TValue>(BSTNode<TKey, TValue> root)
+        public static IEnumerable<TNode> PostOrder<TNode>(TNode root)
+            where TNode : IBinaryNode<TNode>
         {
             return Traverse(root, TraversalType.PostOrder);
         }
 
-        private static IEnumerable<KeyValuePair<TKey, TValue>> Traverse<TKey, TValue>(BSTNode<TKey, TValue> root, TraversalType type)
+        private static IEnumerable<TNode> Traverse<TNode>(TNode root, TraversalType type)
+            where TNode : IBinaryNode<TNode>
         {
             if (root == null)
             {
                 yield break;
             }
 
-            var parents = new DynamicStack<NodeTraversal<TKey, TValue>>();
-            var current = new NodeTraversal<TKey, TValue>(root);
+            var parents = new DynamicStack<NodeTraversal<TNode>>();
+            var current = new NodeTraversal<TNode>(root);
             parents.Push(current);
 
             while (parents.Count > 0)
@@ -55,7 +59,7 @@ namespace NDS
                     if (type == TraversalType.PostOrder)
                     {
                         //finished visiting left and right subtrees
-                        yield return current.Node.ToKeyValuePair();
+                        yield return current.Node;
                     }
 
                     Debug.Assert(current.VisitedLeftSubtree, "Visited right subtree before left");
@@ -68,7 +72,7 @@ namespace NDS
                     if (type == TraversalType.InOrder)
                     {
                         //yield this node after visiting left subtree
-                        yield return current.Node.ToKeyValuePair();
+                        yield return current.Node;
                     }
 
                     current.VisitedRightSubtree = true;
@@ -78,7 +82,7 @@ namespace NDS
                     if (right != null)
                     {
                         parents.Push(current);
-                        current = new NodeTraversal<TKey, TValue>(right);
+                        current = new NodeTraversal<TNode>(right);
                     }
                 }
                 else
@@ -86,7 +90,7 @@ namespace NDS
                     if (type == TraversalType.PreOrder)
                     {
                         //yield node before visiting subtrees
-                        yield return current.Node.ToKeyValuePair();
+                        yield return current.Node;
                     }
 
                     //visit left subtree
@@ -96,7 +100,7 @@ namespace NDS
                     if (left != null)
                     {
                         parents.Push(current);
-                        current = new NodeTraversal<TKey, TValue>(left);
+                        current = new NodeTraversal<TNode>(left);
                     }
                 }
             }
@@ -109,9 +113,10 @@ namespace NDS
             PostOrder = 2
         }
 
-        private class NodeTraversal<TKey, TValue>
+        private class NodeTraversal<TNode>
+            where TNode : IBinaryNode<TNode>
         {
-            public NodeTraversal(BSTNode<TKey, TValue> node)
+            public NodeTraversal(TNode node)
             {
                 Contract.Requires(node != null);
                 this.Node = node;
@@ -119,7 +124,7 @@ namespace NDS
 
             public bool VisitedLeftSubtree { get; set; }
             public bool VisitedRightSubtree { get; set; }
-            public BSTNode<TKey, TValue> Node { get; private set; }
+            public TNode Node { get; private set; }
         }
     }
 }

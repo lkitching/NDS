@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 
@@ -257,7 +258,7 @@ namespace NDS
         /// <returns>An enumerator for the in-order traversal of this tree.</returns>
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            return BSTTraversal.InOrder(this.root).GetEnumerator();
+            return BSTTraversal.InOrder(this.root).Select(n => n.ToKeyValuePair()).GetEnumerator();
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()

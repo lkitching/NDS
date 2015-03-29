@@ -52,6 +52,7 @@
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="FixedArrayQueue.cs" />
     <Compile Include="FixedStack.cs" />
+    <Compile Include="IBinaryNode.cs" />
     <Compile Include="IHasNext.cs" />
     <Compile Include="IHasPrevious.cs" />
     <Compile Include="IMap.cs" />
