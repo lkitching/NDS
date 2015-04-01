@@ -75,6 +75,7 @@
     <Compile Include="MapTests.cs" />
     <Compile Include="MaybeTests.cs" />
     <Compile Include="QueueTests.cs" />
+    <Compile Include="RandomisedBinarySearchTreeTests.cs" />
     <Compile Include="SeqTests.cs" />
     <Compile Include="SinglyLinkedListCollectionTests.cs" />
     <Compile Include="SinglyLinkedListNodeTests.cs" />

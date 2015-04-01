@@ -37,6 +37,33 @@ namespace NDS
         public BSTNode<TKey, TValue> Right { get; set; }
     }
 
+    public class SizedBSTNode<TKey, TValue> : IBSTNode<SizedBSTNode<TKey, TValue>, TKey, TValue>
+    {
+        /// <summary>Creates a new node with the given key and value.</summary>
+        /// <param name="key">The key for this node.</param>
+        /// <param name="value">The value for this node.</param>
+        public SizedBSTNode(TKey key, TValue value)
+        {
+            this.Key = key;
+            this.Value = value;
+        }
+
+        /// <summary>Gets the key for this node.</summary>
+        public TKey Key { get; private set; }
+
+        /// <summary>Gets/sets the value for this node.</summary>
+        public TValue Value { get; set; }
+
+        /// <summary>Gets/sets the left child of this node.</summary>
+        public SizedBSTNode<TKey, TValue> Left { get; set; }
+
+        /// <summary>Gets/sets the right child of this node.</summary>
+        public SizedBSTNode<TKey, TValue> Right { get; set; }
+
+        /// summary>Gets/sets the number of nodes in the tree rooted by this node.</summary>
+        public int Count { get; set; }
+    }
+
     /// <summary>Utility class for binary search tree nodes.</summary>
     public static class BSTNode
     {
@@ -87,6 +114,42 @@ namespace NDS
             }
 
             return Maybe.None<TValue>();
+        }
+
+        /// <summary>Rotates a binary tree node to the left.</summary>
+        /// <typeparam name="TNode">Node type in the tree.</typeparam>
+        /// <param name="parent">The parent node to rotate left with respect to its right child.</param>
+        /// <returns>The new parent node.</returns>
+        public static TNode RotateLeft<TNode>(TNode parent)
+            where TNode : IBinaryNode<TNode>
+        {
+            if (parent.Right != null)
+            {
+                var newRoot = parent.Right;
+                parent.Right = newRoot.Left;
+                newRoot.Left = parent;
+                return newRoot;
+            }
+            else { return parent; }
+        }
+
+        /// <summary>Rotates a binary tree node to the right.</summary>
+        /// <typeparam name="TNode">Node type in the tree.</typeparam>
+        /// <param name="parent">The parent node to rotate right with respect with its left child.</param>
+        /// <returns>The new parent node.</returns>
+        public static TNode RotateRight<TNode>(TNode parent)
+            where TNode : IBinaryNode<TNode>
+        {
+            Contract.Requires(parent != null);
+
+            if (parent.Left != null)
+            {
+                var newRoot = parent.Left;
+                parent.Left = newRoot.Right;
+                newRoot.Right = parent;
+                return newRoot;
+            }
+            else { return parent; }
         }
 
         /// <summary>Returns a key-value pair representing a binary search tree node.</summary>
