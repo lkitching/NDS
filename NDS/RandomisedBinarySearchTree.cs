@@ -46,15 +46,9 @@ namespace NDS
         /// <see cref="IMap{TKey, TValue}.TryAdd"/>
         public bool TryAdd(TKey key, TValue value)
         {
-            if (this.Get(key).HasValue)
-            {
-                return false;
-            }
-            else
-            {
-                this.Assoc(key, value);
-                return true;
-            }
+            var result = this.AddRec(this.root, key, value);
+            this.root = result.Item2;
+            return result.Item1;
         }
 
         /// <see cref="IMap{TKey, TValue}.Assoc"/>
@@ -64,6 +58,18 @@ namespace NDS
         }
 
         private Tuple<bool, SizedBSTNode<TKey, TValue>> AssocRec(SizedBSTNode<TKey, TValue> root, TKey key, TValue value)
+        {
+            return AssocOrAddRec(root, key, value, UpdateOp.Assoc);
+        }
+
+        private Tuple<bool, SizedBSTNode<TKey, TValue>> AddRec(SizedBSTNode<TKey, TValue> root, TKey key, TValue value)
+        {
+            return AssocOrAddRec(root, key, value, UpdateOp.Add);
+        }
+
+        private enum UpdateOp { Add, Assoc }
+
+        private Tuple<bool, SizedBSTNode<TKey, TValue>> AssocOrAddRec(SizedBSTNode<TKey, TValue> root, TKey key, TValue value, UpdateOp op)
         {
             Contract.Ensures(Contract.Result<Tuple<bool, SizedBSTNode<TKey, TValue>>>().Item2 != null);
 
@@ -78,8 +84,11 @@ namespace NDS
 
                 if (c == 0)
                 {
-                    //updating value in existing node
-                    root.Value = value;
+                    //key already exists. If current operation is assoc, update the value of the associated node
+                    if (op == UpdateOp.Assoc)
+                    {
+                        root.Value = value;
+                    }
                     insertedChild = false;
                 }
                 else
@@ -91,14 +100,14 @@ namespace NDS
                     if(c < 0)
                     {
                         //assoc in left subtree
-                        var t = shouldRootInsert ? RootAssocRec(root.Left, key, value) : AssocRec(root.Left, key, value);
+                        var t = shouldRootInsert ? RootAssocOrAddRec(root.Left, key, value, op) : AssocOrAddRec(root.Left, key, value, op);
                         root.Left = t.Item2;
                         insertedChild = t.Item1;
                     }
                     else
                     {
                         //assoc in right subtree
-                        var t = shouldRootInsert ? RootAssocRec(root.Right, key, value) : AssocRec(root.Right, key, value);
+                        var t = shouldRootInsert ? RootAssocOrAddRec(root.Right, key, value, op) : AssocOrAddRec(root.Right, key, value, op);
                         root.Right = t.Item2;
                         insertedChild = t.Item1;
                     }
@@ -110,7 +119,7 @@ namespace NDS
             }
         }
 
-        private Tuple<bool, SizedBSTNode<TKey, TValue>> RootAssocRec(SizedBSTNode<TKey, TValue> root, TKey key, TValue value)
+        private Tuple<bool, SizedBSTNode<TKey, TValue>> RootAssocOrAddRec(SizedBSTNode<TKey, TValue> root, TKey key, TValue value, UpdateOp op)
         {
             Contract.Ensures(Contract.Result<Tuple<bool, SizedBSTNode<TKey, TValue>>>().Item2 != null);
 
@@ -123,12 +132,16 @@ namespace NDS
                 int c = this.keyComparer.Compare(key, root.Key);
                 if (c == 0)
                 {
-                    root.Value = value;
+                    //only uppdate if associating since add should fail if key exists
+                    if (op == UpdateOp.Assoc)
+                    {
+                        root.Value = value;
+                    }
                     return Tuple.Create(false, root);
                 }
                 else if (c < 0)
                 {
-                    var t = RootAssocRec(root.Left, key, value);
+                    var t = RootAssocOrAddRec(root.Left, key, value, op);
                     root.Left = t.Item2;
                     if (t.Item1)
                     {
@@ -142,7 +155,7 @@ namespace NDS
                 else
                 {
                     //insert into right subtree
-                    var t = RootAssocRec(root.Right, key, value);
+                    var t = RootAssocOrAddRec(root.Right, key, value, op);
                     root.Right = t.Item2;
 
                     if (t.Item1)
