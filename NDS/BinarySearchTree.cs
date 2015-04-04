@@ -146,79 +146,18 @@ namespace NDS
             SetValue
         }
 
-        private static BSTNode<TKey, TValue> DeleteRoot(BSTNode<TKey, TValue> root)
-        {
-            Debug.Assert(root != null);
-
-            //if left subtree is empty then new root is right subtree
-            if (root.Left == null) return root.Right;
-
-            //if right subtree is empty then new root is left subtree
-            if (root.Right == null) return root.Left;
-
-            //Both subtrees are non-empty. The smallest element greater than the current root is the left-most
-            //node in the right subtree - this should become the new root. The right-subtree of this node
-            //should become the new left subtree of that node's parent. There is no left subtree since it is
-            //the left-most node in the right subtree.
-            var parent = root.Right;
-            var current = parent.Left;
-
-            while (current != null)
-            {
-                parent = current;
-                current = current.Left;
-            }
-
-            var newRoot = new BSTNode<TKey, TValue>(current.Key, current.Value) { Left = root.Left, Right = root.Right };
-            parent.Left = current.Right;
-            return newRoot;
-        }
-
         /// <summary>Deletes the given key from this tree.</summary>
         /// <param name="key">The key to delete.</param>
         /// <returns>Whether the key existed in this tree before the delete operaiton.</returns>
         public bool Delete(TKey key)
         {
-            BSTNode<TKey, TValue> current = this.root;
-            BSTNode<TKey, TValue> parent = null;
+            var result = BSTNode.Delete(this.root, key, this.comp);
+            this.root = result.Item2;
+            bool deleted = result.Item1;
 
-            while (current != null)
-            {
-                int c = this.comp.Compare(key, current.Key);
-                if (c == 0)
-                {
-                    var newRoot = DeleteRoot(current);
-                    if (parent == null)
-                    {
-                        Debug.Assert(current == this.root);
-                        this.root = null;
-                    }
-                    else if (parent.Left == current) { parent.Left = newRoot; }
-                    else
-                    {
-                        Debug.Assert(parent.Right == current);
-                        parent.Right = newRoot;
-                    }
+            if (deleted) { this.count--; }
 
-                    this.count--;
-                    return true;
-                }
-                else if (c < 0)
-                {
-                    //search left subtree
-                    parent = current;
-                    current = current.Left;
-                }
-                else
-                {
-                    //search right subtree
-                    parent = current;
-                    current = current.Right;
-                }
-            }
-
-            //key not found
-            return false;
+            return deleted;
         }
 
         /// <summary>Deletes all items from this tree.</summary>

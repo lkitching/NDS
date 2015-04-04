@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 namespace NDS
 {
@@ -150,6 +152,83 @@ namespace NDS
                 return newRoot;
             }
             else { return parent; }
+        }
+
+        public static Tuple<bool, BSTNode<TKey, TValue>> Delete<TKey, TValue>(BSTNode<TKey, TValue> root, TKey key, IComparer<TKey> keyComparer)
+        {
+            Contract.Requires(keyComparer != null);
+
+            BSTNode<TKey, TValue> current = root;
+            BSTNode<TKey, TValue> parent = null;
+
+            while (current != null)
+            {
+                int c = keyComparer.Compare(key, current.Key);
+                if (c == 0)
+                {
+                    var newRoot = BSTNode.DeleteRoot(current);
+                    if (parent == null)
+                    {
+                        Debug.Assert(current == root);
+                    }
+                    else if (parent.Left == current) { parent.Left = newRoot; }
+                    else
+                    {
+                        Debug.Assert(parent.Right == current);
+                        parent.Right = newRoot;
+                    }
+
+                    return Tuple.Create(true, parent);
+                }
+                else if (c < 0)
+                {
+                    //search left subtree
+                    parent = current;
+                    current = current.Left;
+                }
+                else
+                {
+                    //search right subtree
+                    parent = current;
+                    current = current.Right;
+                }
+            }
+
+            //key not found so root is unchanged
+            return Tuple.Create(false, root);
+        }
+
+        /// <summary>Deletes the given root node of a binary search tree, merges the two child trees and returns the new root.</summary>
+        /// <typeparam name="TKey">Key type of the tree.</typeparam>
+        /// <typeparam name="TValue">Value type of the tree.</typeparam>
+        /// <param name="root">The root node to delete.</param>
+        /// <returns>The new root node for the tree.</returns>
+        public static BSTNode<TKey, TValue> DeleteRoot<TKey, TValue>(BSTNode<TKey, TValue> root)
+        {
+            Contract.Requires(root != null);
+
+            //if left subtree is empty then new root is right subtree
+            if (root.Left == null) return root.Right;
+
+            //if right subtree is empty then new root is left subtree
+            if (root.Right == null) return root.Left;
+
+            //Both subtrees are non-empty. The smallest element greater than the current root is the left-most
+            //node in the right subtree - this should become the new root. The right-subtree of this node
+            //should become the new left subtree of that node's parent. There is no left subtree since it is
+            //the left-most node in the right subtree.
+            var parent = root.Right;
+            var current = parent.Left;
+
+            while (current != null)
+            {
+                parent = current;
+                current = current.Left;
+            }
+
+            var newRoot = new BSTNode<TKey, TValue>(current.Key, current.Value) { Left = root.Left, Right = root.Right };
+            parent.Left = current.Right;
+            return newRoot;
         }
 
         /// <summary>Returns a key-value pair representing a binary search tree node.</summary>
