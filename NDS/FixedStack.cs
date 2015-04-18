@@ -15,7 +15,7 @@ namespace NDS
         /// <param name="capacity">The capacity of this stack.</param>
         public FixedStack(int capacity)
         {
-            Contract.Requires(capacity > 0);
+            Contract.Requires(capacity >= 0);
             this.items = new T[capacity];
         }
 

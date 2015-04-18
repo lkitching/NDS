@@ -61,13 +61,19 @@ namespace NDS.Tests
         [Test]
         public void Should_Retrieve_After_Assoc()
         {
+            var r = new Random();
             var map = Create();
-            int key = new Random().Next();
-            var value = "value";
+            int count = r.Next(2000, 3000);
+            var keys = TestGen.RandomInts(r).Take(count).ToArray();
 
-            map.Assoc(key, value);
+            foreach (int key in keys)
+            {
+                string value = "value" + key;
+                map.Assoc(key, value);
+                var result = map.Get(key);
 
-            TestAssert.IsSome(map.Get(key), value);
+                TestAssert.IsSome(map.Get(key), value);
+            }
         }
 
         [Test]
@@ -125,7 +131,8 @@ namespace NDS.Tests
             var map = CreateAndPopulate(count);
 
             Assert.AreEqual(count, map.Count, "Unexpected count before delete");
-            map.Delete(count);
+            bool deleted = map.Delete(count);
+            Assert.IsTrue(deleted, "Failed to delete item");
             Assert.AreEqual(count - 1, map.Count, "Failed to decrement count after delete");
         }
 
