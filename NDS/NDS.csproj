@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArrayList.cs" />
+    <Compile Include="AVLNode.cs" />
+    <Compile Include="AVLTree.cs" />
     <Compile Include="BinaryHeap.cs" />
     <Compile Include="BinarySearchTree.cs" />
     <Compile Include="BSTNode.cs" />
