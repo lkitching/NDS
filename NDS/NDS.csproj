@@ -69,6 +69,8 @@
     <Compile Include="SinglyLinkedList.cs" />
     <Compile Include="SinglyLinkedListCollection.cs" />
     <Compile Include="SinglyLinkedListNode.cs" />
+    <Compile Include="SkipListMap.cs" />
+    <Compile Include="SkipListNode.cs" />
     <Compile Include="SplayTree.cs" />
     <Compile Include="Trie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

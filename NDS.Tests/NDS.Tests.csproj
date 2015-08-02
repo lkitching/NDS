@@ -81,6 +81,7 @@
     <Compile Include="SinglyLinkedListCollectionTests.cs" />
     <Compile Include="SinglyLinkedListNodeTests.cs" />
     <Compile Include="SinglyLinkedListTests.cs" />
+    <Compile Include="SkipListMapTests.cs" />
     <Compile Include="SplayTreeTests.cs" />
     <Compile Include="StackTests.cs" />
     <Compile Include="TestAssert.cs" />
