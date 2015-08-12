@@ -1,18 +1,14 @@
 ﻿using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NDS.Tests
 {
     [TestFixture]
-    public class RandomisedBinarySearchTreeTests : MapTests
+    public class RandomisedBinarySearchTreeTests : OrderedMapTests
     {
-        protected override IMap<TKey, TValue> CreateMap<TKey, TValue>(IEqualityComparer<TKey> keyComparer)
+        protected override IMap<TKey, TValue> CreateMap<TKey, TValue>(IComparer<TKey> keyComparer)
         {
-            return new RandomisedBinarySearchTree<TKey, TValue>();
+            return new RandomisedBinarySearchTree<TKey, TValue>(keyComparer);
         }
     }
 }

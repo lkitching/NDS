@@ -214,9 +214,9 @@ namespace NDS.Tests
 
         private IMap<int, string> Create()
         {
-            return CreateMap<int, string>(null);
+            return CreateMap<int, string>();
         }
 
-        protected abstract IMap<TKey, TValue> CreateMap<TKey, TValue>(IEqualityComparer<TKey> keyComparer);
+        protected abstract IMap<TKey, TValue> CreateMap<TKey, TValue>();
     }
 }

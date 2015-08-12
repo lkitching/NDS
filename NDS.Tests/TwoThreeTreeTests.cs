@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using NUnit.Framework;
@@ -7,11 +6,11 @@ using NUnit.Framework;
 namespace NDS.Tests
 {
     [TestFixture]
-    public class TwoThreeTreeTests : MapTests
+    public class TwoThreeTreeTests : OrderedMapTests
     {
-        protected override IMap<TKey, TValue> CreateMap<TKey, TValue>(IEqualityComparer<TKey> keyComparer)
+        protected override IMap<TKey, TValue> CreateMap<TKey, TValue>(IComparer<TKey> keyComparer)
         {
-            return new TwoThreeTree<TKey, TValue>();
+            return new TwoThreeTree<TKey, TValue>(keyComparer);
         }
 
         [Test]

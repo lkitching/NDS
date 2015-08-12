@@ -5,11 +5,11 @@ using NUnit.Framework;
 namespace NDS.Tests
 {
     [TestFixture]
-    public class SkipListMapTests : MapTests
+    public class SkipListMapTests : OrderedMapTests
     {
-        protected override IMap<TKey, TValue> CreateMap<TKey, TValue>(IEqualityComparer<TKey> keyComparer)
+        protected override IMap<TKey, TValue> CreateMap<TKey, TValue>(IComparer<TKey> keyComparer)
         {
-            return new SkipListMap<TKey, TValue>();
+            return new SkipListMap<TKey, TValue>(keyComparer);
         }
     }
 }

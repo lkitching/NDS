@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace NDS.Tests
 {
     [TestFixture]
-    public class AVLTreeTests : MapTests
+    public class AVLTreeTests : OrderedMapTests
     {
-        protected override IMap<TKey, TValue> CreateMap<TKey, TValue>(IEqualityComparer<TKey> keyComparer)
+        protected override IMap<TKey, TValue> CreateMap<TKey, TValue>(IComparer<TKey> keyComparer)
         {
-            return new AVLTree<TKey, TValue>();
+            return new AVLTree<TKey, TValue>(keyComparer);
         }
     }
 }

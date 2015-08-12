@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace NDS.Tests
 {
     [TestFixture]
-    public class ClosedAddressingHashTableTests : MapTests
+    public class ClosedAddressingHashTableTests : UnorderedMapTests
     {
         [Test]
         public void Should_Resize_Table()
