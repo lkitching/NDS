@@ -4,12 +4,12 @@ using System.Diagnostics;
 
 namespace NDS 
 {
-    public class BinaryHeap<T>
+    public class BinaryHeap<T> : IPriorityQueue<T>
     {
         private readonly IComparer<T> comparer;
         private T[] items;
         private int maxDepth;
-        private int count = 0;
+        private int count;
 
         public BinaryHeap()
             : this(Comparer<T>.Default)
@@ -19,10 +19,15 @@ namespace NDS
         public BinaryHeap(IComparer<T> comparer)
         {
             this.comparer = comparer ?? Comparer<T>.Default;
+            this.InitialiseEmpty();
+        }
 
+        private void InitialiseEmpty()
+        {
             this.maxDepth = 4;
             int initialCapacity = GetCapacityForDepth(this.maxDepth);
             this.items = new T[initialCapacity];
+            this.count = 0;
         }
 
         public void Insert(T value)
@@ -35,11 +40,10 @@ namespace NDS
 
             //fix heap property
             this.FixUp(this.count);
-
             this.count++;
         }
 
-        public T RemoveMin()
+        public T RemoveMinimum()
         {
             this.GuardNotEmpty();
 
@@ -51,10 +55,15 @@ namespace NDS
             this.items[this.count - 1] = default(T);        //remove extra reference to item
             
             //fix heap
+            this.count--;
             this.FixDown(0);
 
-            this.count--;
             return min;
+        }
+
+        public T GetMinimum()
+        {
+            return Min;
         }
 
         public T Min
@@ -71,6 +80,11 @@ namespace NDS
         public int Count
         {
             get { return this.count; }
+        }
+
+        public void Clear()
+        {
+            this.InitialiseEmpty();
         }
 
         private void FixUp(int nodeIndex)
@@ -97,6 +111,7 @@ namespace NDS
             while (minChildIndex.HasValue && this.comparer.Compare(this.items[nodeIndex], this.items[minChildIndex.Value]) > 0)
             {
                 this.SwapNodes(nodeIndex, minChildIndex.Value);
+                nodeIndex = minChildIndex.Value;
                 minChildIndex = this.GetMinChildIndex(minChildIndex.Value);
             }
         }
@@ -124,12 +139,12 @@ namespace NDS
         {
             Debug.Assert(parentIndex >= 0);
 
-            //left child is at 2n, right at 2n+1
-            int leftChildIndex = parentIndex * 2;
+            //left child is at 2n+1, right at 2n+2
+            int leftChildIndex = parentIndex * 2 + 1;
             int rightChildIndex = leftChildIndex + 1;
 
-            if (leftChildIndex >= this.count) return null;                      //no children
-            else if (rightChildIndex >= this.count) return leftChildIndex;      //left child only
+            if (leftChildIndex >= this.count) return null;                  //no children
+            else if (rightChildIndex >= this.count) return leftChildIndex;  //left child only
             else
             {
                 //both children exist so find smallest
@@ -158,7 +173,7 @@ namespace NDS
         private static int GetParentIndex(int childIndex)
         {
             if(childIndex == 0) return -1;
-            return ((childIndex + 1) / 2) - 1;
+            return ((childIndex - 1) / 2);
         }
     }
 }

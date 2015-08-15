@@ -44,6 +44,7 @@
     <Compile Include="AVLTree.cs" />
     <Compile Include="BinaryHeap.cs" />
     <Compile Include="BinarySearchTree.cs" />
+    <Compile Include="BinomialHeap.cs" />
     <Compile Include="BSTNode.cs" />
     <Compile Include="BSTTraversal.cs" />
     <Compile Include="ClosedAddressingHashTable.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="IHasNext.cs" />
     <Compile Include="IHasPrevious.cs" />
     <Compile Include="IMap.cs" />
+    <Compile Include="IPriorityQueue.cs" />
     <Compile Include="IQueue.cs" />
     <Compile Include="IRemovable.cs" />
     <Compile Include="IStack.cs" />
