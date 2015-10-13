@@ -46,6 +46,7 @@
     <Compile Include="BinarySearchTree.cs" />
     <Compile Include="BinomialHeap.cs" />
     <Compile Include="BSTNode.cs" />
+    <Compile Include="BSTSearch.cs" />
     <Compile Include="BSTTraversal.cs" />
     <Compile Include="ClosedAddressingHashTable.cs" />
     <Compile Include="DoublyLinkedListCollection.cs" />

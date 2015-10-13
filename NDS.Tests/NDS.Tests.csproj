@@ -65,6 +65,7 @@
     <Compile Include="BinaryHeapTests.cs" />
     <Compile Include="BinarySearchTreeTests.cs" />
     <Compile Include="BinomialQueueTests.cs" />
+    <Compile Include="BSTSearchTests.cs" />
     <Compile Include="BSTTraversalTests.cs" />
     <Compile Include="ClosedAddressingHashTableTests.cs" />
     <Compile Include="DoublyLinkedListCollectionTests.cs" />

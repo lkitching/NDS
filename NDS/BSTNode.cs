@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
+
 namespace NDS
 {
     /// <summary>Represents a node in a binary search tree.</summary>
