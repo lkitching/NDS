@@ -118,7 +118,7 @@ namespace NDS
         /// <typeparam name="TNode">Node type in the tree.</typeparam>
         /// <param name="parent">The parent node to rotate left with respect to its right child.</param>
         /// <returns>The new parent node.</returns>
-        public static TNode RotateLeft<TNode>(TNode parent)
+        public static TNode RotateLeftFromParent<TNode>(TNode parent)
             where TNode : IBinaryNode<TNode>
         {
             if (parent.Right != null)
@@ -131,11 +131,20 @@ namespace NDS
             else { return parent; }
         }
 
+        /// <summary>Rotates left around the given node.</summary>
+        /// <typeparam name="TNode">The type of the nodes in the tree.</typeparam>
+        /// <param name="node">The node to rotate around.</param>
+        public static void RotateLeft<TNode>(this TNode node)
+            where TNode : class, IBinaryNode<TNode>, IHasParent<TNode>
+        {
+            Rotate(node, BranchDirection.Left);
+        }
+
         /// <summary>Rotates a binary tree node to the right.</summary>
         /// <typeparam name="TNode">Node type in the tree.</typeparam>
         /// <param name="parent">The parent node to rotate right with respect with its left child.</param>
         /// <returns>The new parent node.</returns>
-        public static TNode RotateRight<TNode>(TNode parent)
+        public static TNode RotateRightFromParent<TNode>(TNode parent)
             where TNode : IBinaryNode<TNode>
         {
             Contract.Requires(parent != null);
@@ -148,6 +157,61 @@ namespace NDS
                 return newRoot;
             }
             else { return parent; }
+        }
+
+        /// <summary>Rotates in the given direction around the given parent node.</summary>
+        /// <typeparam name="TNode">The type of nodes in the tree.</typeparam>
+        /// <param name="parent">The parent node to rotate around.</param>
+        /// <param name="direction">The direction to rotate in.</param>
+        /// <returns>The new parent of <paramref name="parent"/> after the rotation.</returns>
+        internal static TNode RotateFromParent<TNode>(TNode parent, BranchDirection direction)
+            where TNode : IBinaryNode<TNode>
+        {
+            return direction == BranchDirection.Left
+                ? RotateLeftFromParent(parent)
+                : RotateRightFromParent(parent);
+        }
+
+        /// <summary>Rotates right around the given node.</summary>
+        /// <typeparam name="TNode">The type of nodes in the tree.</typeparam>
+        /// <param name="node">The node to rotate around.</param>
+        public static void RotateRight<TNode>(this TNode node)
+            where TNode : class, IBinaryNode<TNode>, IHasParent<TNode>
+        {
+            Rotate(node, BranchDirection.Right);
+        }
+
+        internal static void Rotate<TNode>(this TNode node, BranchDirection direction)
+            where TNode : class, IBinaryNode<TNode>, IHasParent<TNode>
+        {
+            Contract.Requires(node != null);
+            Contract.Requires(node.Parent != null);
+
+            var parent = node.Parent;
+            var gp = parent.Parent;
+
+            //the child in the rotating direction will be moved to the current parent
+            var movingChild = node.GetChild(direction);
+
+            //save which child of grandparent the current parent is if one exists
+            var parentChildDir = gp == null ? (BranchDirection?)null : parent.GetDirectionFromParent();
+
+            RotateFromParent(node.Parent, direction);
+
+            parent.Parent = node;
+            node.Parent = gp;
+            if (movingChild != null)
+            {
+                //moved child is now the opposite child of the old parent
+                movingChild.Parent = parent;
+            }
+
+            //node is now the child of its old grandparent node (if one exists)
+            //update the grandparent to point to node instead of its old parent
+            if (parentChildDir.HasValue)
+            {
+                gp.SetChild(parentChildDir.Value, node);
+            }
         }
 
         public static Tuple<bool, BSTNode<TKey, TValue>> Delete<TKey, TValue>(BSTNode<TKey, TValue> root, TKey key, IComparer<TKey> keyComparer)

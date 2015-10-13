@@ -180,7 +180,7 @@ namespace NDS
             Debug.Assert(parent != null);
             Debug.Assert(parent.Right != null);
 
-            var newParent = BSTNode.RotateLeft(parent);
+            var newParent = BSTNode.RotateLeftFromParent(parent);
             Debug.Assert(newParent != parent);
 
             FixRotatedNodeCounts(newParent, parent);
@@ -193,7 +193,7 @@ namespace NDS
             Debug.Assert(parent != null);
             Debug.Assert(parent.Left != null);
 
-            var newParent = BSTNode.RotateRight(parent);
+            var newParent = BSTNode.RotateRightFromParent(parent);
             Debug.Assert(newParent != parent);
 
             FixRotatedNodeCounts(newParent, parent);

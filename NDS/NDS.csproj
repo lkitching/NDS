@@ -58,6 +58,7 @@
     <Compile Include="FixedStack.cs" />
     <Compile Include="IBinaryNode.cs" />
     <Compile Include="IHasNext.cs" />
+    <Compile Include="IHasParent.cs" />
     <Compile Include="IHasPrevious.cs" />
     <Compile Include="IMap.cs" />
     <Compile Include="IPriorityQueue.cs" />
@@ -67,6 +68,9 @@
     <Compile Include="Maybe.cs" />
     <Compile Include="Predicates.cs" />
     <Compile Include="RandomisedBinarySearchTree.cs" />
+    <Compile Include="RedBlackNode.cs" />
+    <Compile Include="RedBlackTree.cs" />
+    <Compile Include="RedBlackTreeOps.cs" />
     <Compile Include="Require.cs" />
     <Compile Include="Seq.cs" />
     <Compile Include="SinglyLinkedList.cs" />

@@ -7,6 +7,14 @@ namespace NDS
     /// <summary>The direction of a branch taken in a search through a binary search tree.</summary>
     internal enum BranchDirection { Left, Right }
 
+    internal static class BranchDirectionExtensions
+    {
+        internal static BranchDirection OppositeDirection(this BranchDirection dir)
+        {
+            return dir == BranchDirection.Left ? BranchDirection.Right : BranchDirection.Left;
+        }
+    }
+
     /// <summary>Indicates where to find a key in a binary search tree.</summary>
     public enum BSTComparisonResult { Left, This, Right }
 
@@ -44,6 +52,34 @@ namespace NDS
         }
     }
 
+    internal static class SearchBranch
+    {
+        public static SearchBranch<T> Create<T>(T node, BranchDirection direction)
+        {
+            return new SearchBranch<T>(node, direction);
+        }
+
+        /// <summary>Sets the child node pointed to by this branch to <paramref name="child"/>.</summary>
+        /// <typeparam name="T">The type of the node.</typeparam>
+        /// <param name="branch">The branch pointing to the child to replace.</param>
+        /// <param name="child">The new child node.</param>
+        internal static void SetChildNode<T>(this SearchBranch<T> branch, T child)
+            where T : IBinaryNode<T>
+        {
+            branch.Node.SetChild(branch.Direction, child);
+        }
+
+        /// <summary>Gets the sibling of the node pointed to by this branch.</summary>
+        /// <typeparam name="T">The type of the node.</typeparam>
+        /// <param name="branch">The branch pointing to a child node.</param>
+        /// <returns>The sibling of the node pointed to by this branch.</returns>
+        internal static T SiblingNode<T>(this SearchBranch<T> branch)
+            where T : IBinaryNode<T>
+        {
+            return branch.Node.GetChild(branch.Direction.OppositeDirection());
+        }
+    }
+
     /// <summary>Represents a search for a key in binary search tree.</summary>
     /// <typeparam name="T">The type of nodes in the tree.</typeparam>
     internal interface IBSTSearchContext<T>
@@ -59,6 +95,12 @@ namespace NDS
         /// key was not found.
         /// </summary>
         T MatchingNode { get; }
+    }
+
+    internal interface IBSTDeleteContext<T>
+    {
+        ArrayList<SearchBranch<T>> SearchPath { get; }
+        int? MatchPathIndex { get; }
     }
 
     public static class BSTSearch
@@ -139,6 +181,50 @@ namespace NDS
                 Found = false,
                 MatchingNode = null
             };
+        }
+
+        internal static IBSTDeleteContext<TNode> SearchForDelete<TNode, TKey, TValue>(TNode root, TKey key, IComparer<TKey> keyComparer)
+            where TNode : class, IBSTNode<TNode, TKey, TValue>
+        {
+            var context = SearchFor<TNode, TKey, TValue>(root, key, keyComparer);
+            if (context.Found)
+            {
+                var searchPath = context.SearchPath;
+                
+                //find the in-order successor and add the rest of the path to the search path.
+                //search only contains the path taken up to the the parent of the matching node
+                //so need to add current node and the match index is the count of the current search path
+                //not count - 1. Since the search was successful there must be at least one node in the path.
+                var matchIndex = searchPath.Count;
+
+                TNode current;
+                if (searchPath.Count > 0)
+                {
+                    var parentBranch = searchPath[matchIndex - 1];
+                    current = parentBranch.Node.GetChild(parentBranch.Direction);
+                }
+                else { current = root; }
+
+                //in-order successor is the left-most node in the right subtree of the matching node
+                //add right branch and then iterate down left-most path
+                searchPath.Add(new SearchBranch<TNode>(current, BranchDirection.Right));
+                current = current.Right;
+
+                while (current != null)
+                {
+                    searchPath.Add(new SearchBranch<TNode>(current, BranchDirection.Left));
+                    current = current.Left;
+                }
+
+                return new BSTDeleteContext<TNode> { SearchPath = searchPath, MatchPathIndex = matchIndex };
+            }
+            else return new BSTDeleteContext<TNode> { SearchPath = context.SearchPath, MatchPathIndex = null };
+        }
+
+        private class BSTDeleteContext<T> : IBSTDeleteContext<T>
+        {
+            public ArrayList<SearchBranch<T>> SearchPath { get; set; }
+            public int? MatchPathIndex { get; set; }
         }
 
         private class BSTSearchContext<T> : IBSTSearchContext<T>

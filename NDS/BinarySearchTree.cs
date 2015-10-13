@@ -88,14 +88,7 @@ namespace NDS
             {
                 var parentBranch = context.SearchPath[context.SearchPath.Count - 1];
                 var parent = parentBranch.Node;
-                if (parentBranch.Direction == BranchDirection.Left)
-                {
-                    parent.Left = newNode;
-                }
-                else
-                {
-                    parent.Right = newNode;
-                }
+                parent.SetChild(parentBranch.Direction, newNode);
             }
 
             this.count++;

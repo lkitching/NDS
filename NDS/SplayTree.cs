@@ -74,8 +74,8 @@ namespace NDS
 
                     if (result.Item1.HasValue)
                     {
-                        var tmp = BSTNode.RotateRight(root);
-                        var newRoot = BSTNode.RotateRight(tmp);
+                        var tmp = BSTNode.RotateRightFromParent(root);
+                        var newRoot = BSTNode.RotateRightFromParent(tmp);
                         return Tuple.Create(result.Item1, newRoot);
                     }
                     else { return NotFound(root); }
@@ -89,8 +89,8 @@ namespace NDS
 
                     if (result.Item1.HasValue)
                     {
-                        root.Left = BSTNode.RotateLeft(leftChild);
-                        var newRoot = BSTNode.RotateRight(root);
+                        root.Left = BSTNode.RotateLeftFromParent(leftChild);
+                        var newRoot = BSTNode.RotateRightFromParent(root);
                         return Tuple.Create(result.Item1, newRoot);
                     }
                     else { return NotFound(root); }
@@ -116,8 +116,8 @@ namespace NDS
 
                     if (result.Item1.HasValue)
                     {
-                        root.Right = BSTNode.RotateRight(rightChild);
-                        var newRoot = BSTNode.RotateLeft(root);
+                        root.Right = BSTNode.RotateRightFromParent(rightChild);
+                        var newRoot = BSTNode.RotateLeftFromParent(root);
                         return Tuple.Create(result.Item1, newRoot);
                     }
                     else { return NotFound(root); }
@@ -131,8 +131,8 @@ namespace NDS
 
                     if (result.Item1.HasValue)
                     {
-                        var tmp = BSTNode.RotateLeft(root);
-                        var newRoot = BSTNode.RotateLeft(tmp);
+                        var tmp = BSTNode.RotateLeftFromParent(root);
+                        var newRoot = BSTNode.RotateLeftFromParent(tmp);
                         return Tuple.Create(result.Item1, newRoot);
                     }
                     else { return NotFound(root); }
@@ -227,7 +227,7 @@ namespace NDS
                     }
 
                     //rotate accessed node up to root
-                    var newRoot = BSTNode.RotateRight(root);
+                    var newRoot = BSTNode.RotateRightFromParent(root);
                     return UpdateResult.Existing(newRoot);
                 }
                 else if (lc < 0)
@@ -236,8 +236,8 @@ namespace NDS
                     //add/assoc into left-left subtree then rotate 'top down' from the root
                     var assocResult = SplayAddOrAssoc(leftChild.Left, key, value, op);
                     leftChild.Left = assocResult.NewRoot;
-                    var tmp = BSTNode.RotateRight(root);
-                    var newRoot = BSTNode.RotateRight(tmp);
+                    var tmp = BSTNode.RotateRightFromParent(root);
+                    var newRoot = BSTNode.RotateRightFromParent(tmp);
                     return assocResult.WithRoot(newRoot);
                 }
                 else
@@ -246,8 +246,8 @@ namespace NDS
                     //add/assoc into left-right subtree then rotate 'bottom up' from the inserted/updated node
                     var assocResult = SplayAddOrAssoc(leftChild.Right, key, value, op);
                     leftChild.Right = assocResult.NewRoot;
-                    root.Left = BSTNode.RotateLeft(leftChild);
-                    var newRoot = BSTNode.RotateRight(root);
+                    root.Left = BSTNode.RotateLeftFromParent(leftChild);
+                    var newRoot = BSTNode.RotateRightFromParent(root);
                     return assocResult.WithRoot(newRoot);
                 }
             }
@@ -268,7 +268,7 @@ namespace NDS
                     }
 
                     //rotate accessed node up to the root
-                    var newRoot = BSTNode.RotateLeft(root);
+                    var newRoot = BSTNode.RotateLeftFromParent(root);
                     return UpdateResult.Existing(newRoot);
                 }
                 else if (rc < 0)
@@ -277,8 +277,8 @@ namespace NDS
                     //add/assoc into right-left tree then rotate 'bottom up' from the inserted/updated node
                     var assocResult = SplayAddOrAssoc(rightChild.Left, key, value, op);
                     rightChild.Left = assocResult.NewRoot;
-                    root.Right = BSTNode.RotateRight(rightChild);
-                    var newRoot = BSTNode.RotateLeft(root);
+                    root.Right = BSTNode.RotateRightFromParent(rightChild);
+                    var newRoot = BSTNode.RotateLeftFromParent(root);
                     return assocResult.WithRoot(newRoot);
                 }
                 else
@@ -287,8 +287,8 @@ namespace NDS
                     //add/assoc into right-right subtree and rotate 'top down' from the current root
                     var assocResult = SplayAddOrAssoc(rightChild.Right, key, value, op);
                     rightChild.Right = assocResult.NewRoot;
-                    var tmp = BSTNode.RotateLeft(root);
-                    var newRoot = BSTNode.RotateLeft(tmp);
+                    var tmp = BSTNode.RotateLeftFromParent(root);
+                    var newRoot = BSTNode.RotateLeftFromParent(tmp);
                     return assocResult.WithRoot(newRoot);
                 }
             }

@@ -65,6 +65,7 @@
     <Compile Include="BinaryHeapTests.cs" />
     <Compile Include="BinarySearchTreeTests.cs" />
     <Compile Include="BinomialQueueTests.cs" />
+    <Compile Include="BSTNodeTests.cs" />
     <Compile Include="BSTSearchTests.cs" />
     <Compile Include="BSTTraversalTests.cs" />
     <Compile Include="ClosedAddressingHashTableTests.cs" />
@@ -81,6 +82,8 @@
     <Compile Include="PriorityQueueTests.cs" />
     <Compile Include="QueueTests.cs" />
     <Compile Include="RandomisedBinarySearchTreeTests.cs" />
+    <Compile Include="RedBlackTreeOpsTests.cs" />
+    <Compile Include="RedBlackTreeTests.cs" />
     <Compile Include="SeqTests.cs" />
     <Compile Include="SinglyLinkedListCollectionTests.cs" />
     <Compile Include="SinglyLinkedListNodeTests.cs" />

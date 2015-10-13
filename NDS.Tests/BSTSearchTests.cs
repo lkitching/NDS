@@ -93,6 +93,48 @@ namespace NDS.Tests
             Assert.IsFalse(context.Found, "Search should fail");
         }
 
+        [Test]
+        public void Search_Delete_Unsuccessful()
+        {
+            var context = SearchForDelete(A, 4);
+            var expectedSearch = new[] {
+                CreateBranch(A, BranchDirection.Left),
+                CreateBranch(B, BranchDirection.Left),
+                CreateBranch(D, BranchDirection.Right),
+                CreateBranch(F, BranchDirection.Right)
+            };
+
+            Assert.IsNull(context.MatchPathIndex, "match index should be null on failed search");
+            CollectionAssert.AreEqual(expectedSearch, context.SearchPath, "Unexpected search path");
+        }
+
+        [Test]
+        public void Search_Delete_Successful()
+        {
+            var context = SearchForDelete(A, 5);
+            var expectedSearch = new[] {
+                CreateBranch(A, BranchDirection.Left),
+                CreateBranch(B, BranchDirection.Right),
+                CreateBranch(E, BranchDirection.Left)
+            };
+
+            Assert.AreEqual(1, context.MatchPathIndex, "Unexpected matching context");
+            CollectionAssert.AreEqual(expectedSearch, context.SearchPath, "Unexpected search path");
+        }
+
+        [Test]
+        public void Search_Delete_Matches_Root()
+        {
+            var context = SearchForDelete(A, 10);
+            var expectedSearch = new[] {
+                CreateBranch(A, BranchDirection.Right),
+                CreateBranch(C, BranchDirection.Left),
+            };
+
+            Assert.AreEqual(0, context.MatchPathIndex, "Unexpected matching context");
+            CollectionAssert.AreEqual(expectedSearch, context.SearchPath, "Unexpected search path");
+        }
+
         private SearchBranch<BSTNode<int, string>> CreateBranch(BSTNode<int, string> node, BranchDirection dir)
         {
             return new SearchBranch<BSTNode<int,string>>(node, dir);
@@ -101,6 +143,11 @@ namespace NDS.Tests
         private IBSTSearchContext<BSTNode<int, string>> Search(BSTNode<int, string> root, int key)
         {
             return BSTSearch.SearchFor<BSTNode<int, string>, int, string>(root, key, Comparer<int>.Default);
+        }
+
+        private IBSTDeleteContext<BSTNode<int, string>> SearchForDelete(BSTNode<int, string> root, int key)
+        {
+            return BSTSearch.SearchForDelete<BSTNode<int, string>, int, string>(root, key, Comparer<int>.Default);
         }
     }
 }
