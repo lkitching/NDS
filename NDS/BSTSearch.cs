@@ -7,6 +7,9 @@ namespace NDS
     /// <summary>The direction of a branch taken in a search through a binary search tree.</summary>
     internal enum BranchDirection { Left, Right }
 
+    /// <summary>Indicates where to find a key in a binary search tree.</summary>
+    public enum BSTComparisonResult { Left, This, Right }
+
     /// <summary>Represents a branch taken in a search through a binary search tree.</summary>
     /// <typeparam name="T">The type of nodes in the tree.</typeparam>
     internal struct SearchBranch<T> : IEquatable<SearchBranch<T>>
@@ -58,8 +61,30 @@ namespace NDS
         T MatchingNode { get; }
     }
 
-    internal class BSTSearch
+    public static class BSTSearch
     {
+        /// <summary>
+        /// Find where a node with the given key could be found in the binary search tree rooted by <paramref name="node"/>.
+        /// </summary>
+        /// <typeparam name="TNode">Node type in the tree.</typeparam>
+        /// <typeparam name="TKey">Key type of the tree.</typeparam>
+        /// <typeparam name="TValue">Value type in the tree.</typeparam>
+        /// <param name="node">The node to start the search.</param>
+        /// <param name="key">The key to search for.</param>
+        /// <param name="keyComparer">Comparer for keys in the tree.</param>
+        /// <returns>A <see cref="BSTComparisonResult"/> indicating where in the tree the key could be found relative to <paramref name="node"/>.</returns>
+        public static BSTComparisonResult FindKey<TNode, TKey, TValue>(this IBSTNode<TNode, TKey, TValue> node, TKey key, IComparer<TKey> keyComparer)
+            where TNode : IBSTNode<TNode, TKey, TValue>
+        {
+            Contract.Requires(node != null);
+
+            int c = keyComparer.Compare(key, node.Key);
+
+            if (c == 0) return BSTComparisonResult.This;
+            else if (c < 0) return BSTComparisonResult.Left;
+            else return BSTComparisonResult.Right;
+        }
+
         /// <summary>Searches for a key in a binary search tree with the given root node.</summary>
         /// <typeparam name="TNode">The type of nodes in the tree.</typeparam>
         /// <typeparam name="TKey">Key type of the tree.</typeparam>
@@ -78,28 +103,32 @@ namespace NDS
 
             while (current != null)
             {
-                int c = keyComparer.Compare(key, current.Key);
-                if (c == 0)
+                switch (current.FindKey(key, keyComparer))
                 {
-                    //key found
-                    return new BSTSearchContext<TNode>
+                    case BSTComparisonResult.This:
                     {
-                        SearchPath = searchPath,
-                        Found = true,
-                        MatchingNode = current
-                    };
-                }
-                else if (c < 0)
-                {
-                    //search left subtree
-                    searchPath.Add(new SearchBranch<TNode>(current, BranchDirection.Left));
-                    current = current.Left;
-                }
-                else
-                {
-                    //search right subtree
-                    searchPath.Add(new SearchBranch<TNode>(current, BranchDirection.Right));
-                    current = current.Right;
+                        //key found
+                        return new BSTSearchContext<TNode>
+                        {
+                            SearchPath = searchPath,
+                            Found = true,
+                            MatchingNode = current
+                        };
+                    }
+                    case BSTComparisonResult.Left:
+                    {
+                        //search left subtree
+                        searchPath.Add(new SearchBranch<TNode>(current, BranchDirection.Left));
+                        current = current.Left;
+                        break;
+                    }
+                    default:
+                    {
+                        //search right subtree
+                        searchPath.Add(new SearchBranch<TNode>(current, BranchDirection.Right));
+                        current = current.Right;
+                        break;
+                    }
                 }
             }
 

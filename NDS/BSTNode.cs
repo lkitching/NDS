@@ -99,20 +99,15 @@ namespace NDS
             var current = root;
             while (current != null)
             {
-                int c = keyComparer.Compare(key, current.Key);
-                if (c == 0)
+                switch (current.FindKey(key, keyComparer))
                 {
-                    return Maybe.Some(current.Value);
-                }
-                else if (c < 0)
-                {
-                    //search left subtree
-                    current = current.Left;
-                }
-                else
-                {
-                    //search right subtree
-                    current = current.Right;
+                    case BSTComparisonResult.This: return Maybe.Some(current.Value);
+                    case BSTComparisonResult.Left:
+                        current = current.Left;
+                        break;
+                    default:
+                        current = current.Right;
+                        break;
                 }
             }
 
@@ -164,8 +159,8 @@ namespace NDS
 
             while (current != null)
             {
-                int c = keyComparer.Compare(key, current.Key);
-                if (c == 0)
+                var c = current.FindKey(key, keyComparer);
+                if (c == BSTComparisonResult.This)
                 {
                     var newRoot = BSTNode.DeleteRoot(current);
                     if (parent == null)
@@ -181,7 +176,7 @@ namespace NDS
 
                     return Tuple.Create(true, parent);
                 }
-                else if (c < 0)
+                else if (c == BSTComparisonResult.Left)
                 {
                     //search left subtree
                     parent = current;

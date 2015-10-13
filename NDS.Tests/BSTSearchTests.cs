@@ -32,6 +32,17 @@ namespace NDS.Tests
         }
 
         [Test]
+        [TestCase(4, 4, BSTComparisonResult.This)]
+        [TestCase(4, 2, BSTComparisonResult.Left)]
+        [TestCase(4, 7, BSTComparisonResult.Right)]
+        public void FindKey_Should_Match_Current_Node(int nodeKey, int searchKey, BSTComparisonResult expectedResult)
+        {
+            var node = new BSTNode<int, string>(nodeKey, "test");
+            var result = node.FindKey(searchKey, Comparer<int>.Default);
+            Assert.AreEqual(expectedResult, result, "Unexepcted comparison result");
+        }
+
+        [Test]
         public void Search_Path_Should_Be_Empty_For_Null_Root()
         {
             var context = BSTSearch.SearchFor<BSTNode<int, string>, int, string>(null, 1, Comparer<int>.Default);
