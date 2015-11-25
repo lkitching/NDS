@@ -102,6 +102,7 @@
     <Compile Include="TwoThreeNodeTests.cs" />
     <Compile Include="TwoThreeTreeTests.cs" />
     <Compile Include="UnorderedMapTests.cs" />
+    <Compile Include="VEBTreeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

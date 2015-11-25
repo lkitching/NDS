@@ -9,9 +9,9 @@ namespace NDS.Tests
 {
     public static class TestAssert
     {
-        public static void IsNone<T>(Maybe<T> mv)
+        public static void IsNone<T>(Maybe<T> mv, string message = "Maybe has value")
         {
-            Assert.IsFalse(mv.HasValue, "Maybe has value");
+            Assert.IsFalse(mv.HasValue, message);
         }
 
         public static void IsSome<T>(Maybe<T> mv, T expectedValue)
