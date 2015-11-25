@@ -39,6 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\Sorting\BubbleSort.cs" />
+    <Compile Include="Algorithms\Sorting\IInPlaceSort.cs" />
+    <Compile Include="Algorithms\Sorting\InsertionSort.cs" />
+    <Compile Include="Algorithms\Sorting\SelectionSort.cs" />
+    <Compile Include="Algorithms\Sorting\ShellSort.cs" />
     <Compile Include="ArrayList.cs" />
     <Compile Include="AVLNode.cs" />
     <Compile Include="AVLTree.cs" />
@@ -49,6 +54,7 @@
     <Compile Include="BSTSearch.cs" />
     <Compile Include="BSTTraversal.cs" />
     <Compile Include="ClosedAddressingHashTable.cs" />
+    <Compile Include="ComparisonResult.cs" />
     <Compile Include="DoublyLinkedListCollection.cs" />
     <Compile Include="DoublyLinkedListNode.cs" />
     <Compile Include="DynamicLinkedQueue.cs" />

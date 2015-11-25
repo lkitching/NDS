@@ -23,5 +23,32 @@ namespace NDS
         {
             return seq ?? Enumerable.Empty<T>();
         }
+
+        public static ComparisonResult ToComparisonResult(this int i)
+        {
+            if (i < 0) return ComparisonResult.Less;
+            else if (i > 0) return ComparisonResult.Greater;
+            else return ComparisonResult.Equal;
+        }
+
+        public static ComparisonResult CompareResult<T>(this IComparer<T> comparer, T x, T y)
+        {
+            return comparer.Compare(x, y).ToComparisonResult();
+        }
+
+        public static void SwapIndexed<T>(this T[] items, int i, int j)
+        {
+            T tmp = items[i];
+            items[i] = items[j];
+            items[j] = tmp;
+        }
+
+        public static void SwapIndexedWhen<T>(this T[] items, IComparer<T> comparer, int i, int j, ComparisonResult whenResult)
+        {
+            if (comparer.CompareResult(items[i], items[j]) == whenResult)
+            {
+                SwapIndexed(items, i, j);
+            }
+        }
     }
 }
