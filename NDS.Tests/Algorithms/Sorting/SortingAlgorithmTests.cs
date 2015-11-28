@@ -17,6 +17,8 @@ namespace NDS.Tests.Algorithms.Sorting
         [TestCase(typeof(InsertionSort), Description = "Insertion sort")]
         [TestCase(typeof(BubbleSort), Description = "Bubble sort")]
         [TestCase(typeof(ShellSort), Description = "Shell sort")]
+        [TestCase(typeof(QuickSort), Description = "Quick sort")]
+        [TestCase(typeof(MergeSort), Description = "Merge sort")]
         public void Sort_Test(Type sortType)
         {
             var values = TestGen.NRandomInts(50, 100).ToArray();
