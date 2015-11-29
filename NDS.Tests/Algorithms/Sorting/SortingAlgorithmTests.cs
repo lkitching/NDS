@@ -19,6 +19,7 @@ namespace NDS.Tests.Algorithms.Sorting
         [TestCase(typeof(ShellSort), Description = "Shell sort")]
         [TestCase(typeof(QuickSort), Description = "Quick sort")]
         [TestCase(typeof(MergeSort), Description = "Merge sort")]
+        [TestCase(typeof(HeapSort), Description = "Heap sort")]
         public void Sort_Test(Type sortType)
         {
             var values = TestGen.NRandomInts(50, 100).ToArray();

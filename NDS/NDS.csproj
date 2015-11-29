@@ -39,7 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\BinaryHeapOperations.cs" />
     <Compile Include="Algorithms\Sorting\BubbleSort.cs" />
+    <Compile Include="Algorithms\Sorting\HeapSort.cs" />
     <Compile Include="Algorithms\Sorting\IInPlaceSort.cs" />
     <Compile Include="Algorithms\Sorting\InsertionSort.cs" />
     <Compile Include="Algorithms\Sorting\MergeSort.cs" />

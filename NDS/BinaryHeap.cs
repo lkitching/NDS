@@ -89,31 +89,12 @@ namespace NDS
 
         private void FixUp(int nodeIndex)
         {
-            while (nodeIndex > 0)
-            {
-                int parentIndex = GetParentIndex(nodeIndex);
-                
-                //swap current node and parent if current < parent
-                if (this.comparer.Compare(this.items[nodeIndex], this.items[parentIndex]) < 0)
-                {
-                    this.SwapNodes(nodeIndex, parentIndex);
-                    nodeIndex = parentIndex;
-                }
-                else break;
-            }
+            NDS.Algorithms.BinaryHeapOperations.FixUp(this.items, nodeIndex, 0, this.comparer);
         }
 
         private void FixDown(int nodeIndex)
         {
-            int? minChildIndex = this.GetMinChildIndex(nodeIndex);
-
-            //swap node with min child until it is no smaller
-            while (minChildIndex.HasValue && this.comparer.Compare(this.items[nodeIndex], this.items[minChildIndex.Value]) > 0)
-            {
-                this.SwapNodes(nodeIndex, minChildIndex.Value);
-                nodeIndex = minChildIndex.Value;
-                minChildIndex = this.GetMinChildIndex(minChildIndex.Value);
-            }
+            NDS.Algorithms.BinaryHeapOperations.FixDown(this.items, nodeIndex, 0, this.count - 1, this.comparer);
         }
 
         private void EnsureCapacityForInsert()
@@ -135,45 +116,12 @@ namespace NDS
             if (this.count < 1) throw new InvalidOperationException("Heap is empty");
         }
 
-        private int? GetMinChildIndex(int parentIndex)
-        {
-            Debug.Assert(parentIndex >= 0);
-
-            //left child is at 2n+1, right at 2n+2
-            int leftChildIndex = parentIndex * 2 + 1;
-            int rightChildIndex = leftChildIndex + 1;
-
-            if (leftChildIndex >= this.count) return null;                  //no children
-            else if (rightChildIndex >= this.count) return leftChildIndex;  //left child only
-            else
-            {
-                //both children exist so find smallest
-                //NOTE: right child is chosen if both are equal
-                return this.comparer.Compare(this.items[leftChildIndex], this.items[rightChildIndex]) < 0
-                    ? leftChildIndex
-                    : rightChildIndex;
-            }
-        }
-
-        private void SwapNodes(int i, int j)
-        {
-            T temp = this.items[i];
-            this.items[i] = this.items[j];
-            this.items[j] = temp;
-        }
-
         private static int GetCapacityForDepth(int depth)
         {
             Debug.Assert(depth > 0);
 
             if (depth > 31) throw new ArgumentOutOfRangeException("Cannot create tree with depth > 31");
             return (1 << depth) - 1;
-        }
-
-        private static int GetParentIndex(int childIndex)
-        {
-            if(childIndex == 0) return -1;
-            return ((childIndex - 1) / 2);
         }
     }
 }

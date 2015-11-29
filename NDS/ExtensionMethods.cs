@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,6 +49,27 @@ namespace NDS
             if (comparer.CompareResult(items[i], items[j]) == whenResult)
             {
                 SwapIndexed(items, i, j);
+            }
+        }
+
+        public static IComparer<T> Reverse<T>(this IComparer<T> comp)
+        {
+            Contract.Requires(comp != null);
+            return new ReverseComparer<T>(comp);
+        }
+
+        private class ReverseComparer<T> : IComparer<T>
+        {
+            private readonly IComparer<T> inner;
+
+            public ReverseComparer(IComparer<T> inner)
+            {
+                this.inner = inner;
+            }
+
+            public int Compare(T x, T y)
+            {
+                return this.inner.Compare(y, x);
             }
         }
     }
