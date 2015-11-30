@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\Searching\BinarySearchTests.cs" />
     <Compile Include="Algorithms\Sorting\SortingAlgorithmTests.cs" />
     <Compile Include="ArrayListTests.cs" />
     <Compile Include="AVLTreeTests.cs" />
