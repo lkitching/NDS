@@ -9,15 +9,32 @@ namespace NDS
 {
     public static class ExtensionMethods
     {
-        public static TValue GetOr<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, TValue @default)
+        public static TValue GetOrValue<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, TValue @default)
         {
             TValue val;
             return dict.TryGetValue(key, out val) ? val : @default;
         }
 
-        public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key)
+        public static TValue GetOr<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, Func<TValue> defaultFunc)
         {
-            return GetOr(dict, key, default(TValue));
+            TValue val;
+            return dict.TryGetValue(key, out val) ? val : defaultFunc();
+        }
+
+        public static TValue GetOrDefaultValue<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key)
+        {
+            return GetOrValue(dict, key, default(TValue));
+        }
+
+        public static TValue GetOrInsert<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, Func<TValue> toInsertFunc)
+        {
+            TValue val;
+            if (! dict.TryGetValue(key, out val))
+            {
+                val = toInsertFunc();
+                dict.Add(key, val);
+            }
+            return val;
         }
 
         public static IEnumerable<T> EmptyIfNull<T>(this IEnumerable<T> seq)

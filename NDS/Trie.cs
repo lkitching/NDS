@@ -91,7 +91,7 @@ namespace NDS
 
             public Node GetChild(char c)
             {
-                return this.children.GetOrDefault(c);
+                return this.children.GetOrDefaultValue(c);
             }
 
             public Node AddChild(char c)

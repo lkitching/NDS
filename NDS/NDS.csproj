@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Graphs\UndirectedAdjacencyListGraph.cs" />
     <Compile Include="Algorithms\BinaryHeapOperations.cs" />
     <Compile Include="Algorithms\Searching\BinarySearch.cs" />
     <Compile Include="Algorithms\Searching\BinarySearchResult.cs" />
@@ -70,6 +71,8 @@
     <Compile Include="FixedStack.cs" />
     <Compile Include="ForestDisjointSet.cs" />
     <Compile Include="ForestDisjointSetTreeNode.cs" />
+    <Compile Include="Graphs\UndirectedEdge.cs" />
+    <Compile Include="Graphs\UndirectedEdgeEqualityComparer.cs" />
     <Compile Include="IBinaryNode.cs" />
     <Compile Include="IHasNext.cs" />
     <Compile Include="IHasParent.cs" />

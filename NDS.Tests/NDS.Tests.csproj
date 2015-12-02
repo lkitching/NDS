@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Graphs\AdjacencyListGraphTests.cs" />
     <Compile Include="Algorithms\Searching\BinarySearchTests.cs" />
     <Compile Include="Algorithms\Sorting\SortingAlgorithmTests.cs" />
     <Compile Include="ArrayListTests.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="FixedStackTests.cs" />
     <Compile Include="ForestDisjointSetTests.cs" />
     <Compile Include="ForestDisjointSetTreeNodeTests.cs" />
+    <Compile Include="Graphs\UndirectedEdgeEqualityComparerTests.cs" />
     <Compile Include="MapTests.cs" />
     <Compile Include="MaybeTests.cs" />
     <Compile Include="OrderedMapTests.cs" />
