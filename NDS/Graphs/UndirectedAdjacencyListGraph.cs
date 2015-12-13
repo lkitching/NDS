@@ -9,7 +9,7 @@ namespace NDS.Graphs
     /// Undirected graph implementation represented as an adjacency list for each vertex in the graph.
     /// </summary>
     /// <typeparam name="V">The type of vertices in this graph.</typeparam>
-    public class UndirectedAdjacencyListGraph<V>
+    public class UndirectedAdjacencyListGraph<V> : IGraph<V>
     {
         private readonly IEqualityComparer<V> comp;
         private readonly Dictionary<V, HashSet<V>> edges;
@@ -82,6 +82,11 @@ namespace NDS.Graphs
             else return false;
         }
 
+        public bool ContainsVertex(V vertex)
+        {
+            return this.edges.ContainsKey(vertex);
+        }
+
         private void RemoveAdjacency(V source, V target)
         {
             var adj = this.GetAdjacencySetFor(source);
@@ -140,6 +145,11 @@ namespace NDS.Graphs
         public IEnumerable<V> Vertices
         {
             get { return this.edges.Keys; }
+        }
+
+        public IEqualityComparer<V> VertexComparer
+        {
+            get { return this.comp; }
         }
 
         private void AddDirected(V source, V dest)

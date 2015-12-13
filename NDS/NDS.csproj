@@ -39,8 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Graphs\IGraph.cs" />
     <Compile Include="Graphs\UndirectedAdjacencyListGraph.cs" />
     <Compile Include="Algorithms\BinaryHeapOperations.cs" />
+    <Compile Include="Algorithms\Graphs\BreadthFirstSearch.cs" />
+    <Compile Include="Algorithms\Graphs\DepthFirstSearch.cs" />
     <Compile Include="Algorithms\Searching\BinarySearch.cs" />
     <Compile Include="Algorithms\Searching\BinarySearchResult.cs" />
     <Compile Include="Algorithms\Sorting\BubbleSort.cs" />
@@ -102,6 +105,7 @@
     <Compile Include="TwoThreeTree.cs" />
     <Compile Include="VEBTree.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
