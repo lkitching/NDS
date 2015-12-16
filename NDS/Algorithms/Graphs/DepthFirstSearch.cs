@@ -12,7 +12,7 @@ namespace NDS.Algorithms.Graphs
         /// <param name="graph">The graph to search.</param>
         /// <param name="startVertex">The vertex to start from.</param>
         /// <returns>The sequence of vertices in the order they were visited by the search.</returns>
-        public IEnumerable<V> Search<V>(IGraph<V> graph, V startVertex)
+        public IEnumerable<V> Search<E, V>(IGraph<E, V> graph, V startVertex)
         {
             if (!graph.ContainsVertex(startVertex)) yield break;
 

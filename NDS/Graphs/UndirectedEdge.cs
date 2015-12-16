@@ -2,7 +2,7 @@
 {
     /// <summary>Represents an undirected edge between two vertices.</summary>
     /// <typeparam name="V">The vertex type.</typeparam>
-    public struct UndirectedEdge<V>
+    public struct UndirectedEdge<V> : IEdge<V>
     {
         /// <summary>Creates an edge between the given vertices.</summary>
         /// <param name="x">The first vertex.</param>
@@ -10,14 +10,14 @@
         public UndirectedEdge(V x, V y)
             : this()
         {
-            this.X = x;
-            this.Y = y;
+            this.V1 = x;
+            this.V2 = y;
         }
 
         /// <summary>One vertex in the edge.</summary>
-        public V X { get; private set; }
+        public V V1 { get; private set; }
 
         /// <summary>The other vertex in the edge.</summary>
-        public V Y { get; private set; }
+        public V V2 { get; private set; }
     }
 }

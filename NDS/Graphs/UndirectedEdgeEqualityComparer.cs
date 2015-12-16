@@ -6,7 +6,8 @@ namespace NDS.Graphs
 {
     /// <summary>Equality comparer for <see cref="UndirectedEdge{V}"/>.</summary>
     /// <typeparam name="V">The type of vertices connected by the edge.</typeparam>
-    public class UndirectedEdgeEqualityComparer<V> : IEqualityComparer<UndirectedEdge<V>>
+    public class UndirectedEdgeEqualityComparer<E, V> : IEqualityComparer<E>
+        where E : IEdge<V>
     {
         private readonly IEqualityComparer<V> vertexComparer;
 
@@ -32,18 +33,18 @@ namespace NDS.Graphs
         /// <param name="e1"></param>
         /// <param name="e2"></param>
         /// <returns></returns>
-        public bool Equals(UndirectedEdge<V> e1, UndirectedEdge<V> e2)
+        public bool Equals(E e1, E e2)
         {
-            return (this.vertexComparer.Equals(e1.X, e2.X) && this.vertexComparer.Equals(e1.Y, e2.Y) ||
-                   (this.vertexComparer.Equals(e1.X, e2.Y) && this.vertexComparer.Equals(e1.Y, e2.X)));
+            return (this.vertexComparer.Equals(e1.V1, e2.V1) && this.vertexComparer.Equals(e1.V2, e2.V2) ||
+                   (this.vertexComparer.Equals(e1.V1, e2.V2) && this.vertexComparer.Equals(e1.V2, e2.V1)));
         }
 
         /// <summary>Gets a hash code for the given edge based on the hash code of the two vertices.</summary>
         /// <param name="obj">The edge to calculate the hash code for.</param>
         /// <returns>A hash code for <see cref="obj"/>.</returns>
-        public int GetHashCode(UndirectedEdge<V> obj)
+        public int GetHashCode(E obj)
         {
-            return this.vertexComparer.GetHashCode(obj.X) ^ this.vertexComparer.GetHashCode(obj.Y);
+            return this.vertexComparer.GetHashCode(obj.V1) ^ this.vertexComparer.GetHashCode(obj.V2);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace NDS.Tests.Graphs
         {
             var graph = Create<int>();
             var vertices = TestGen.NRandomInts(2000, 2000).ToArray();
-            var edgeComparer = new UndirectedEdgeEqualityComparer<int>();
+            var edgeComparer = new UndirectedEdgeEqualityComparer<UndirectedEdge<int>, int>();
             var edges = new HashSet<UndirectedEdge<int>>(edgeComparer);
 
             for (int i = 0; i < vertices.Length; i += 2)
@@ -145,7 +145,7 @@ namespace NDS.Tests.Graphs
             var e4 = new UndirectedEdge<int>(v4, v1);
 
             var graph = new UndirectedAdjacencyListGraph<int>(new[] { e1, e2, e3, e4 });
-            var edgeComparer = new UndirectedEdgeEqualityComparer<int>();
+            var edgeComparer = new UndirectedEdgeEqualityComparer<UndirectedEdge<int>, int>();
 
             TestAssert.SetEqual(new[] { e1, e2, e4 }, graph.GetAdjacentEdges(v1), edgeComparer);
             TestAssert.SetEqual(new[] { e1, e3 }, graph.GetAdjacentEdges(v2), edgeComparer);
