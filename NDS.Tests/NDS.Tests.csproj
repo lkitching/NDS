@@ -78,6 +78,8 @@
     <Compile Include="ExtensionMethodsTests.cs" />
     <Compile Include="FixedArrayQueueTests.cs" />
     <Compile Include="FixedStackTests.cs" />
+    <Compile Include="ForestDisjointSetTests.cs" />
+    <Compile Include="ForestDisjointSetTreeNodeTests.cs" />
     <Compile Include="MapTests.cs" />
     <Compile Include="MaybeTests.cs" />
     <Compile Include="OrderedMapTests.cs" />

@@ -40,5 +40,14 @@ namespace NDS.Tests
                 yield return gen(r);
             }
         }
+
+        /// <summary>Generates a random bool.</summary>
+        /// <param name="r">Generator used to generate the result.</param>
+        /// <returns>A bool generated randomly using <paramref name="r"/>.</returns>
+        public static bool RandomBool(Random r = null)
+        {
+            r = r ?? new Random();
+            return r.Next() % 2 == 0;
+        }
     }
 }
