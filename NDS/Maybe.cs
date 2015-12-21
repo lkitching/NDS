@@ -249,4 +249,33 @@ namespace NDS
             return maybe.GetOr((T)null);
         }
     }
+
+    public class MaybeEqualityComparer<T> : IEqualityComparer<Maybe<T>>
+    {
+        private readonly IEqualityComparer<T> valueComparer;
+
+        public MaybeEqualityComparer() : this(EqualityComparer<T>.Default) { }
+
+        public MaybeEqualityComparer(IEqualityComparer<T> valueComparer)
+        {
+            this.valueComparer = valueComparer;
+        }
+
+        public bool Equals(Maybe<T> x, Maybe<T> y)
+        {
+            if (x.HasValue)
+            {
+                return y.HasValue && this.valueComparer.Equals(x.Value, y.Value);
+            }
+            else
+            {
+                return !y.HasValue;
+            }
+        }
+
+        public int GetHashCode(Maybe<T> obj)
+        {
+            return obj.HasValue ? this.valueComparer.GetHashCode(obj.Value) : 1;
+        }
+    }
 }

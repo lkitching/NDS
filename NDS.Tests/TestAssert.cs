@@ -31,5 +31,17 @@ namespace NDS.Tests
             expectedSet.ExceptWith(actualSet);
             Assert.AreEqual(0, expectedSet.Count, "{0}: Expected elements ({1}) to exist in the set", message, string.Join(", ", expectedSet));
         }
+
+        public static void AreEqual<T>(T expected, T actual, IEqualityComparer<T> comparer)
+        {
+            bool eq = comparer.Equals(expected, actual);
+            Assert.IsTrue(eq, string.Format("Values not equal: Expected {0}, Actual: {1}", expected, actual));
+        }
+
+        public static void AreNotEqual<T>(T x, T y, IEqualityComparer<T> comparer)
+        {
+            bool eq = comparer.Equals(x, y);
+            Assert.IsFalse(eq, string.Format("{0} unexpectedly equal to {1}", x, y));
+        }
     }
 }

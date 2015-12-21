@@ -86,6 +86,7 @@
     <Compile Include="ForestDisjointSetTreeNodeTests.cs" />
     <Compile Include="Graphs\UndirectedEdgeEqualityComparerTests.cs" />
     <Compile Include="MapTests.cs" />
+    <Compile Include="MaybeEqualityComparerTests.cs" />
     <Compile Include="MaybeTests.cs" />
     <Compile Include="OrderedMapTests.cs" />
     <Compile Include="PriorityQueueTests.cs" />
