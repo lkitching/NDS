@@ -6,7 +6,7 @@ using NDS.Algorithms.Searching;
 
 namespace NDS.Algorithms.Graphs
 {
-    public class PrimsAlgorithm
+    public class PrimsAlgorithm : IMinimumSpanningTreeAlgorithm
     {
         /// <summary>Finds a minimum spanning tree for a graph using Prim's algorithm.</summary>
         /// <typeparam name="E">Edge type of the graph.</typeparam>

@@ -39,12 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\Graphs\IMinimumSpanningTreeAlgorithm.cs" />
     <Compile Include="Graphs\IEdge.cs" />
     <Compile Include="Graphs\IGraph.cs" />
     <Compile Include="Graphs\UndirectedAdjacencyListGraph.cs" />
     <Compile Include="Algorithms\BinaryHeapOperations.cs" />
     <Compile Include="Algorithms\Graphs\BreadthFirstSearch.cs" />
     <Compile Include="Algorithms\Graphs\DepthFirstSearch.cs" />
+    <Compile Include="Algorithms\Graphs\KruskalsAlgorithm.cs" />
     <Compile Include="Algorithms\Graphs\PrimsAlgorithm.cs" />
     <Compile Include="Algorithms\Searching\BinarySearch.cs" />
     <Compile Include="Algorithms\Searching\BinarySearchResult.cs" />

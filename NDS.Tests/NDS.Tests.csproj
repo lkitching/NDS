@@ -62,7 +62,9 @@
   <ItemGroup>
     <Compile Include="Algorithms\Graphs\BreadthFirstSearchTests.cs" />
     <Compile Include="Algorithms\Graphs\DepthFirstSearchTest.cs" />
-    <Compile Include="Algorithms\Graphs\PrimsAlgorithmTest.cs" />
+    <Compile Include="Algorithms\Graphs\KruskalsAlgorithmTest.cs" />
+    <Compile Include="Algorithms\Graphs\MinimumSpanningTreeAlgorithmTest.cs" />
+    <Compile Include="Algorithms\Graphs\PrimsAlgorithmTests.cs" />
     <Compile Include="Graphs\AdjacencyListGraphTests.cs" />
     <Compile Include="Algorithms\Searching\BinarySearchTests.cs" />
     <Compile Include="Algorithms\Sorting\SortingAlgorithmTests.cs" />

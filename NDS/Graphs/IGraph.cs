@@ -6,6 +6,7 @@ namespace NDS.Graphs
     public interface IGraph<E, V>
     {
         IEnumerable<V> Vertices { get; }
+        IEnumerable<E> Edges { get; }
         IEnumerable<E> GetAdjacentEdges(V vertex);
         bool ContainsVertex(V vertex);
         IEnumerable<V> GetAdjacentVertices(V vertex);

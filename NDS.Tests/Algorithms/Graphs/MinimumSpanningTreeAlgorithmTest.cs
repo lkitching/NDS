@@ -10,9 +10,10 @@ using NUnit.Framework;
 
 namespace NDS.Tests.Algorithms.Graphs
 {
-    [TestFixture]
-    public class PrimsAlgorithmTest
+    public abstract class MinimumSpanningTreeAlgorithmTest
     {
+        protected abstract IMinimumSpanningTreeAlgorithm Create();
+
         [Test]
         public void Should_Find_MST()
         {
@@ -27,7 +28,7 @@ namespace NDS.Tests.Algorithms.Graphs
             var edges = new[] { ab, ac, bc, cd, ad, be, de };
 
             var graph = new WeightedUndirectedAdjacencyListGraph<char, int>(edges, EqualityComparer<char>.Default, EqualityComparer<int>.Default);
-            var prims = new PrimsAlgorithm();
+            var prims = Create();
             var mstEdges = prims.MinimumSpanningTree(graph, Comparer<int>.Default).ToArray();
 
             var expectedEdges = new[] { ab, ac, de, be };
