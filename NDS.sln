@@ -1,18 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "NDS.Immutable", "NDS.Immutable\NDS.Immutable.fsproj", "{CD7291D2-7F9C-4528-A984-2D2AC14AFBC5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDS", "NDS\NDS.csproj", "{2CDE4E1F-536D-4637-865E-46E9C48E0545}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDS.Tests", "NDS.Tests\NDS.Tests.csproj", "{25111445-2C45-41D7-97DA-322C96DE40BF}"
-EndProject
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DA1A7447-B349-43FA-A0AB-976AA5A28D2F}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "NDS.Immutable", "NDS.Immutable\NDS.Immutable.fsproj", "{CD7291D2-7F9C-4528-A984-2D2AC14AFBC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDS", "NDS\NDS.csproj", "{2CDE4E1F-536D-4637-865E-46E9C48E0545}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDS.Tests", "NDS.Tests\NDS.Tests.csproj", "{25111445-2C45-41D7-97DA-322C96DE40BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
