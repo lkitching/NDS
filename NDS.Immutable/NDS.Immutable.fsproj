@@ -51,6 +51,7 @@
     <Compile Include="LeftistHeap.fs" />
     <Compile Include="BinomialHeap.fsi" />
     <Compile Include="BinomialHeap.fs" />
+    <Compile Include="Rope.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>

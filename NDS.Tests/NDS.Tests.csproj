@@ -87,6 +87,7 @@
     <Compile Include="ForestDisjointSetTests.cs" />
     <Compile Include="ForestDisjointSetTreeNodeTests.cs" />
     <Compile Include="Graphs\UndirectedEdgeEqualityComparerTests.cs" />
+    <Compile Include="Immutable\RopeTests.cs" />
     <Compile Include="MapTests.cs" />
     <Compile Include="MaybeEqualityComparerTests.cs" />
     <Compile Include="MaybeTests.cs" />
@@ -116,6 +117,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NDS.Immutable\NDS.Immutable.fsproj">
+      <Project>{cd7291d2-7f9c-4528-a984-2d2ac14afbc5}</Project>
+      <Name>NDS.Immutable</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NDS\NDS.csproj">
       <Project>{2cde4e1f-536d-4637-865e-46e9c48e0545}</Project>
       <Name>NDS</Name>
