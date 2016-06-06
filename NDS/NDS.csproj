@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\Graphs\IMinimumSpanningTreeAlgorithm.cs" />
+    <Compile Include="GapBuffer.cs" />
     <Compile Include="Graphs\IEdge.cs" />
     <Compile Include="Graphs\IGraph.cs" />
     <Compile Include="Graphs\UndirectedAdjacencyListGraph.cs" />
