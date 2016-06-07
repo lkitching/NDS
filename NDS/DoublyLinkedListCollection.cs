@@ -25,6 +25,11 @@ namespace NDS
             });
         }
 
+        public IInsertable<T> FrontInserter()
+        {
+            return new ActionInserter<T>(this.AddFirst);
+        }
+
         /// <summary>Adds an item to the end of this collection.</summary>
         /// <param name="value">The item to add.</param>
         public void AddLast(T value)
@@ -34,6 +39,11 @@ namespace NDS
                 n.InsertAfter(this.last);
                 this.last = n;
             });
+        }
+
+        public IInsertable<T> BackInserter()
+        {
+            return new ActionInserter<T>(this.AddLast);
         }
 
         /// <summary>Gets the first item in this collection.</summary>

@@ -70,10 +70,7 @@ namespace NDS
             var items = Enumerable.Range(10, 20).ToArray();
             var sut = this.Create<int>();
 
-            foreach (int i in items)
-            {
-                sut.Enqueue(i);
-            }
+            sut.EnqueueInserter().InsertAll(items);
 
             CollectionAssert.AreEqual(items, sut, "Unexpected items in queue");
         }

@@ -91,6 +91,7 @@
     <Compile Include="IHasParent.cs" />
     <Compile Include="IHasPrevious.cs" />
     <Compile Include="IHasWeight.cs" />
+    <Compile Include="IInsertable.cs" />
     <Compile Include="IMap.cs" />
     <Compile Include="IPriorityQueue.cs" />
     <Compile Include="IQueue.cs" />

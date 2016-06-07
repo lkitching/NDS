@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace NDS 
 {
-    public class ArrayList<T> : IEnumerable<T>, IRemovable<T>
+    public class ArrayList<T> : IEnumerable<T>, IRemovable<T>, IInsertable<T>
     {
         private static readonly int DEFAULT_CAPACITY = 10;
 
@@ -45,6 +45,11 @@ namespace NDS
             }
 
             this.count = initial.Length;
+        }
+
+        public void Insert(T item)
+        {
+            this.Add(item);
         }
 
         public void Add(T item)

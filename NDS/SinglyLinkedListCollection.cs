@@ -11,7 +11,7 @@ namespace NDS
     /// tracks the number of contained items.
     /// </summary>
     /// <typeparam name="T">The type of values in the collection.</typeparam>
-    public class SinglyLinkedListCollection<T> : IEnumerable<T>, IRemovable<T>
+    public class SinglyLinkedListCollection<T> : IEnumerable<T>, IRemovable<T>, IInsertable<T>
     {
         private SinglyLinkedListNode<T> first;
         private int count = 0;
@@ -53,6 +53,11 @@ namespace NDS
             }
 
             this.count++;
+        }
+
+        public void Insert(T item)
+        {
+            this.AddFirst(item);
         }
 
         /// <summary>Removes the first element in this list if one exists.</summary>

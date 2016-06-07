@@ -5,13 +5,8 @@
     /// according to a given comparison methods for objects of type <typeparamref name="T"/>.
     /// </summary>
     /// <typeparam name="T">The type of items in this queue.</typeparam>
-    public interface IPriorityQueue<T>
+    public interface IPriorityQueue<T> : IInsertable<T>
     {
-        /// <summary>Inserts an element into this queue.</summary>
-        /// <param name="item">The item to insert.</param>
-        /// <exception cref="InvalidOperationException">If this queue has limited capacity which has been reached.</exception>
-        void Insert(T item);
-
         /// <summary>Gets the minimum value in this queue according to its comparison method.</summary>
         /// <returns>The minimum element in this queue.</returns>
         /// <exception cref="InvalidOperationException">If this queue is empty.</exception>

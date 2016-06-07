@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NDS
 {
-    public class Trie
+    public class Trie : IInsertable<string>
     {
         private readonly Node root = new Node();
 
@@ -35,6 +31,11 @@ namespace NDS
                 current = current.AddChild(str[i]);
                 ++i;
             }
+        }
+
+        public void Insert(string str)
+        {
+            this.Add(str);
         }
 
         public bool Contains(string str)

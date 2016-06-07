@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace NDS.Tests
@@ -98,7 +97,7 @@ namespace NDS.Tests
             int removeAt = new Random().Next(0, items.Length);
 
             var buf = new GapBuffer<int>();
-            InsertAll(buf, items);
+            buf.InsertAll(items);
 
             buf.Point = removeAt + 1;
             var removed = buf.RemovePrevious();
@@ -134,7 +133,7 @@ namespace NDS.Tests
             int removeAt = new Random().Next(0, items.Length);
 
             var buf = new GapBuffer<int>();
-            InsertAll(buf, items);
+            buf.InsertAll(items);
 
             buf.Point = removeAt;
             int removed = buf.RemoveNext();
@@ -152,17 +151,9 @@ namespace NDS.Tests
         {
             var items = TestGen.NRandomInts(10, 50).ToArray();
             var buf = new GapBuffer<int>(items.Length);
-            InsertAll(buf, items);
+            buf.InsertAll(items);
 
             return buf;
-        }
-
-        private static void InsertAll<T>(GapBuffer<T> buf, IEnumerable<T> items)
-        {
-            foreach(T item in items)
-            {
-                buf.Insert(item);
-            }
         }
     }
 }

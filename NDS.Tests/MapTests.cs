@@ -188,10 +188,7 @@ namespace NDS.Tests
             var pairs = keys.Select(k => new KeyValuePair<int, string>(k, "value" + k)).ToArray();
             var map = Create();
 
-            foreach (var p in pairs)
-            {
-                map.Add(p);
-            }
+            map.AddInserter().InsertAll(pairs);
 
             CollectionAssert.AreEquivalent(pairs, map, "Unexpected pairs in map");
         }

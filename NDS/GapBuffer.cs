@@ -13,7 +13,7 @@ namespace NDS
     /// upon the following insert or delete operation.
     /// </summary>
     /// <typeparam name="T">The type of items in the buffer.</typeparam>
-    public class GapBuffer<T> : IEnumerable<T>
+    public class GapBuffer<T> : IEnumerable<T>, IInsertable<T>
     {
         private T[] buf;
         private int gapStart;

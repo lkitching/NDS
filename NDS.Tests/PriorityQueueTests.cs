@@ -37,7 +37,7 @@ namespace NDS.Tests
         {
             var items = TestGen.NRandomInts(100, 200).ToArray();
             var sut = Create<int>();
-            foreach(var i in items) { sut.Insert(i); }
+            sut.InsertAll(items);
 
             Assert.AreEqual(items.Length, sut.Count, "Unexpected count");
         }
@@ -47,7 +47,7 @@ namespace NDS.Tests
         {
             var sut = Create<int>();
             var items = TestGen.NRandomInts(1000, 5000).ToArray();
-            foreach (var i in items) { sut.Insert(i); }
+            sut.InsertAll(items);
 
             var min = items.Min();
 
@@ -59,8 +59,7 @@ namespace NDS.Tests
         {
             var sut = Create<int>();
             var items = TestGen.NRandomInts(1000, 5000).ToArray();
-
-            foreach (var i in items) { sut.Insert(i); }
+            sut.InsertAll(items);
 
             int removed = sut.RemoveMinimum();
             AssertMin(items.Min(), removed);
@@ -71,8 +70,7 @@ namespace NDS.Tests
         {
             var sut = Create<int>();
             var items = TestGen.NRandomInts(10000, 20000).ToArray();
-
-            foreach (var i in items) { sut.Insert(i); }
+            sut.InsertAll(items);
 
             var minimums = Consume(sut).ToArray();
             CollectionAssert.AreEqual(items.OrderBy(i => i), minimums, "Failed to remove all items in order");
@@ -108,10 +106,7 @@ namespace NDS.Tests
 
             int minValue = items.Select(c => c.Value).Min();
 
-            foreach (Custom item in items)
-            {
-                sut.Insert(item);
-            }
+            sut.InsertAll(items);
 
             AssertMin(minValue, sut.Min.Value);
         }

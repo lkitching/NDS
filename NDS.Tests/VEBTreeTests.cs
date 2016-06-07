@@ -28,8 +28,7 @@ namespace NDS.Tests
         {
             var values = TestGen.NRandomInts(5000, 10000).Where(i => i >= 0).Select(i => (uint)i).ToArray();
             var veb = new VEBTree();
-
-            foreach (var i in values) { veb.Insert(i); }
+            veb.InsertAll(values);
 
             foreach (var value in values)
             {
@@ -42,11 +41,7 @@ namespace NDS.Tests
         {
             var values = TestGen.NRandomInts(5000, 10000).Where(i => i >= 0).Select(i => (uint)i).ToArray();
             var veb = new VEBTree();
-
-            foreach (var i in values)
-            {
-                veb.Insert(i);
-            }
+            veb.InsertAll(values);
 
             Assert.AreEqual(Maybe.Some(values.Min()), veb.FindMin(), "Unexpected minimum");
             Assert.AreEqual(Maybe.Some(values.Max()), veb.FindMax(), "Unexpected maximum");
@@ -57,7 +52,7 @@ namespace NDS.Tests
         {
             var values = RandomUInts();
             var veb = new VEBTree();
-            InsertAll(veb, values);
+            veb.InsertAll(values);
 
             TestAssert.IsNone(veb.FindNext(values.Max()), "Should not find next for max value");
 
@@ -75,7 +70,7 @@ namespace NDS.Tests
         {
             var values = RandomUInts();
             var veb = new VEBTree();
-            InsertAll(veb, values);
+            veb.InsertAll(values);
 
             TestAssert.IsNone(veb.FindPrevious(values.Min()), "Should not find previous for min value");
 
@@ -93,7 +88,7 @@ namespace NDS.Tests
         {
             var values = RandomUInts();
             var veb = new VEBTree();
-            InsertAll(veb, values);
+            veb.InsertAll(values);
 
             foreach (var value in values)
             {
@@ -110,7 +105,7 @@ namespace NDS.Tests
         {
             var values = RandomUInts();
             var veb = new VEBTree();
-            InsertAll(veb, values);
+            veb.InsertAll(values);
 
             foreach (uint missing in RandomUInts().Except(values))
             {
@@ -124,7 +119,7 @@ namespace NDS.Tests
         {
             var values = RandomUInts();
             var veb = new VEBTree();
-            InsertAll(veb, values);
+            veb.InsertAll(values);
 
             var orderedValues = values.OrderBy(i => i).ToArray();
             for(int i = 0; i < orderedValues.Length - 1; ++i)
@@ -147,7 +142,7 @@ namespace NDS.Tests
         {
             var values = RandomUInts();
             var veb = new VEBTree();
-            InsertAll(veb, values);
+            veb.InsertAll(values);
 
             var orderedValues = values.OrderBy(i => i).ToArray();
             for (int i = orderedValues.Length - 1; i >= 1; --i)
@@ -167,11 +162,6 @@ namespace NDS.Tests
         private static uint[] RandomUInts(int minCount = 5000, int maxCount = 10000)
         {
             return TestGen.NRandomInts(5000, 10000).Where(i => i >= 0).Select(i => (uint)i).ToArray();
-        }
-
-        private static void InsertAll(VEBTree tree, IEnumerable<uint> values)
-        {
-            foreach (uint i in values) { tree.Insert(i); }
         }
     }
 }

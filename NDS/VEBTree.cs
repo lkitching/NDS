@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace NDS
 {
     /// <summary>Van Emde Boas tree.</summary>
-    public class VEBTree
+    public class VEBTree : IInsertable<uint>
     {
         private readonly VEBTree[] children;
         private readonly byte height;

@@ -11,7 +11,7 @@ namespace NDS
     /// not allow access to its nodes and tracks the number of contained elements.
     /// </summary>
     /// <typeparam name="T">Type of values in the nodes in this list.</typeparam>
-    public class SinglyLinkedList<T> : IEnumerable<SinglyLinkedListNode<T>>
+    public class SinglyLinkedList<T> : IEnumerable<SinglyLinkedListNode<T>>, IInsertable<T>, IInsertable<SinglyLinkedListNode<T>>
     {
         /// <summary>Gets the head of this list if one exists. Returns null if this list is empty.</summary>
         public SinglyLinkedListNode<T> First { get; private set; }
@@ -63,6 +63,16 @@ namespace NDS
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
+        }
+
+        public void Insert(T item)
+        {
+            this.AddFirst(item);
+        }
+
+        public void Insert(SinglyLinkedListNode<T> node)
+        {
+            this.AddFirst(node);
         }
     }
 }

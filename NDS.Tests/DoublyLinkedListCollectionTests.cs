@@ -23,11 +23,7 @@ namespace NDS.Tests
         {
             var list = new DoublyLinkedListCollection<int>();
             int count = 10;
-
-            foreach (int i in Enumerable.Range(1, count))
-            {
-                list.AddFirst(i);
-            }
+            list.FrontInserter().InsertAll(Enumerable.Range(1, count));
 
             Assert.AreEqual(count, list.Count, "Failed to increment count on insert");
         }
@@ -176,10 +172,7 @@ namespace NDS.Tests
         private static DoublyLinkedListCollection<T> Create<T>(params T[] items)
         {
             var list = new DoublyLinkedListCollection<T>();
-            foreach (T item in items)
-            {
-                list.AddLast(item);
-            }
+            list.BackInserter().InsertAll(items);
             return list;
         }
     }
