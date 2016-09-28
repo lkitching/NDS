@@ -97,6 +97,7 @@
     <Compile Include="IQueue.cs" />
     <Compile Include="IRemovable.cs" />
     <Compile Include="IStack.cs" />
+    <Compile Include="LexicographicComparer.cs" />
     <Compile Include="Maybe.cs" />
     <Compile Include="Predicates.cs" />
     <Compile Include="RandomisedBinarySearchTree.cs" />
