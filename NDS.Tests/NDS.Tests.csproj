@@ -89,6 +89,7 @@
     <Compile Include="ForestDisjointSetTreeNodeTests.cs" />
     <Compile Include="Graphs\UndirectedEdgeEqualityComparerTests.cs" />
     <Compile Include="Immutable\RopeTests.cs" />
+    <Compile Include="IntRangeTests.cs" />
     <Compile Include="LexicographicComparerTests.cs" />
     <Compile Include="MapTests.cs" />
     <Compile Include="MaybeEqualityComparerTests.cs" />
