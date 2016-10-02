@@ -9,8 +9,8 @@ namespace NDS.Algorithms.Sorting
         {
             for (int i = fromIndex; i < toIndex; ++i)
             {
-                //'bubble' the smallest element in the range [i..toIndex] into its sorted position
-                for (int j = toIndex; j > i; --j)
+                //'bubble' the smallest element in the range [i..toIndex) into its sorted position
+                for (int j = toIndex - 1; j > i; --j)
                 {
                     items.SwapIndexedWhen(comp, j, j - 1, ComparisonResult.Less);
                 }

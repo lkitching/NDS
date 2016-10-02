@@ -10,9 +10,9 @@ namespace NDS.Algorithms.Sorting
             for (int i = fromIndex; i < toIndex; ++i)
             {
                 int minIndex = i;
-                //find the index of the minimum item in the range [i..toIndex]
+                //find the index of the minimum item in the range [i..toIndex)
                 //then swap it with the item at index i
-                for (int j = i + 1; j <= toIndex; ++j)
+                for (int j = i + 1; j < toIndex; ++j)
                 {
                     if (comp.Compare(items[j], items[minIndex]) < 0)
                     {

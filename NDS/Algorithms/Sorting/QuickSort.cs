@@ -9,17 +9,17 @@ namespace NDS.Algorithms.Sorting
         public void SortRange<T>(T[] items, int fromIndex, int toIndex, IComparer<T> comp)
         {
             //done if range contains one or zero items
-            if (toIndex <= fromIndex) return;
+            if (IntRange.RangeCount(fromIndex, toIndex) <= 1) return;
 
             int i = Partition(items, fromIndex, toIndex, comp);
-            SortRange(items, fromIndex, i - 1, comp);
+            SortRange(items, fromIndex, i, comp);
             SortRange(items, i + 1, toIndex, comp);
         }
 
         /// <summary>
-        /// Chooses a pivot from the range [fromIndex..toIndex] and partitions the array around that
+        /// Chooses a pivot from the range [fromIndex..toIndex) and partitions the array around that
         /// element. After the partition, all items in the range [fromIndex..ret-1] are equal to or less
-        /// than the pivot, and all items in the range [ret+1..toIndex] are equal or greater.
+        /// than the pivot, and all items in the range [ret+1..toIndex) are equal or greater.
         /// </summary>
         /// <typeparam name="T">Element type of the collection.</typeparam>
         /// <param name="items">The collection to partition.</param>
@@ -30,9 +30,10 @@ namespace NDS.Algorithms.Sorting
         private static int Partition<T>(T[] items, int fromIndex, int toIndex, IComparer<T> comp)
         {
             //choose last item in range as the pivot
-            T pivot = items[toIndex];
+            int pivotIndex = toIndex - 1;
+            T pivot = items[pivotIndex];
             int l = fromIndex;
-            int r = toIndex - 1;
+            int r = pivotIndex - 1;
 
             while (true)
             {
@@ -59,7 +60,7 @@ namespace NDS.Algorithms.Sorting
             }
 
             //finally put the pivot into its sorted position in the input
-            items.SwapIndexed(l, toIndex);
+            items.SwapIndexed(l, pivotIndex);
             return l;
         }
     }

@@ -12,7 +12,7 @@ namespace NDS.Algorithms.Sorting
             
             //work back through the range fixing each element down through the tree
             //this constructs the max heap in place in the range
-            for (int i = toIndex; i >= fromIndex; --i)
+            for (int i = toIndex - 1; i >= fromIndex; --i)
             {
                 BinaryHeapOperations.FixDown(items, i, fromIndex, toIndex, maxComp);
             }
@@ -20,13 +20,13 @@ namespace NDS.Algorithms.Sorting
             //continually move the max item in the heap (the first item) into position at
             //the end of the range. Swap with the current end element to put it in place then
             //fix up the heap to move the next-largest item to the front
-            int unsortedEndIndex = toIndex;
+            int unsortedEndIndex = toIndex - 1;
             while (unsortedEndIndex > fromIndex)
             {
                 items.SwapIndexed(fromIndex, unsortedEndIndex);
 
                 unsortedEndIndex--;
-                BinaryHeapOperations.FixDown(items, fromIndex, fromIndex, unsortedEndIndex, maxComp);
+                BinaryHeapOperations.FixDown(items, fromIndex, fromIndex, unsortedEndIndex + 1, maxComp);
             }
         }
 

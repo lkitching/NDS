@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace NDS.Algorithms.Sorting
 {
@@ -12,7 +8,7 @@ namespace NDS.Algorithms.Sorting
         {
             for (int h = GetH(fromIndex, toIndex); h > 0; h /= 3)
             {
-                for (int i = fromIndex + h; i <= toIndex; ++i)
+                for (int i = fromIndex + h; i < toIndex; ++i)
                 {
                     int j = i;
                     T v = items[i];
@@ -29,7 +25,7 @@ namespace NDS.Algorithms.Sorting
         private static int GetH(int fromIndex, int toIndex)
         {
             int h;
-            for (h = 1; h <= (toIndex - fromIndex) / 9; h = 3 * h + 1) ;
+            for (h = 1; h <= (toIndex - 1 - fromIndex) / 9; h = 3 * h + 1) ;
             return h;
         }
     }

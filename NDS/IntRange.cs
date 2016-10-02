@@ -30,7 +30,38 @@ namespace NDS
         /// <summary>Whether this range is empty.</summary>
         public bool IsEmpty
         {
-            get { return this.Start >= this.End; }
+            get { return RangeIsEmpty(this.Start, this.End); }
+        }
+
+        /// <summary>Returns whether the range [start, end) is empty.</summary>
+        /// <param name="start">Start of the range.</param>
+        /// <param name="end">Exclusive end element of the range.</param>
+        /// <returns>Whether the range [start, end) is empty.</returns>
+        public static bool RangeIsEmpty(int start, int end)
+        {
+            return start >= end;
+        }
+
+        /// <summary>Find the midpoint of the range [start, end).</summary>
+        /// <param name="start">Start of the range.</param>
+        /// <param name="end">Exclusive endpoint of the range.</param>
+        /// <returns>The midpoint of [start, end).</returns>
+        public static int RangeMidpoint(int start, int end)
+        {
+            if (RangeIsEmpty(start, end)) return start;
+            else
+            {
+                return start + ((end - 1 - start) / 2);
+            }
+        }
+
+        /// <summary>Gets the number of elements in the range [start, end).</summary>
+        /// <param name="start">Start of the range.</param>
+        /// <param name="end">Exclusive end element of the range.</param>
+        /// <returns>The number of elements in the range [start, end).</returns>
+        public static int RangeCount(int start, int end)
+        {
+            return Math.Max(0, end - start);
         }
 
         /// <summary>Returns whether the given value is contained within this range.</summary>
@@ -44,11 +75,7 @@ namespace NDS
         /// <summary>Gets the number of elements in this range.</summary>
         public int Count
         {
-            get
-            {
-                if (this.IsEmpty) return 0;
-                else return this.End - this.Start;
-            }
+            get { return RangeCount(this.Start, this.End); }
         }
 
         /// <summary>Gets the item at the given index in this range.</summary>

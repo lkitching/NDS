@@ -119,6 +119,38 @@ namespace NDS.Tests
             CollectionAssert.AreEqual(Enumerable.Range(range.Start, toTake), taken);
         }
 
+        [Test]
+        public void EmptyRangeMidpointShouldBeStart()
+        {
+            var r = new Random();
+            int start = r.Next(1000, 10000);
+            int diff = r.Next(500);
+
+            Assert.AreEqual(start, IntRange.RangeMidpoint(start, start - diff));
+        }
+
+        [Test]
+        public void MidpointNonEmptyEvenCount()
+        {
+            var r = new Random();
+            int start = r.Next(1000, 10000);
+            int n = r.Next(100, 1000);
+            int count = n * 2;
+
+            Assert.AreEqual(start + n - 1, IntRange.RangeMidpoint(start, start + count));
+        }
+
+        [Test]
+        public void MidpointNonEmptyOddCount()
+        {
+            var r = new Random();
+            int start = r.Next(1000, 10000);
+            int n = r.Next(1, 1000);
+            int count = n * 2 + 1;
+
+            Assert.AreEqual(start + n, IntRange.RangeMidpoint(start, start + count));
+        }
+
         private static IntRange Empty()
         {
             var r = new Random();

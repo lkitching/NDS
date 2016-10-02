@@ -7,7 +7,7 @@ namespace NDS.Algorithms.Sorting
     {
         public void SortRange<T>(T[] items, int fromIndex, int toIndex, IComparer<T> comp)
         {
-            for (int i = fromIndex + 1; i <= toIndex; ++i)
+            for (int i = fromIndex + 1; i < toIndex; ++i)
             {
                 //invariant: [fromIndex..i] is sorted
                 int j = i;

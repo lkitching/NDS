@@ -94,7 +94,7 @@ namespace NDS
 
         private void FixDown(int nodeIndex)
         {
-            NDS.Algorithms.BinaryHeapOperations.FixDown(this.items, nodeIndex, 0, this.count - 1, this.comparer);
+            NDS.Algorithms.BinaryHeapOperations.FixDown(this.items, nodeIndex, 0, this.count, this.comparer);
         }
 
         private void EnsureCapacityForInsert()

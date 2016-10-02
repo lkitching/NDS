@@ -9,12 +9,12 @@ namespace NDS.Algorithms.Sorting
         public void SortRange<T>(T[] items, int fromIndex, int toIndex, IComparer<T> comp)
         {
             //done if range contains one or zero items
-            if (fromIndex >= toIndex) return;
+            if (IntRange.RangeCount(fromIndex, toIndex) <= 1) return;
 
-            int midIndex = (fromIndex + toIndex) / 2;
+            int midIndex = IntRange.RangeMidpoint(fromIndex, toIndex);
 
             //sort two halves of the input
-            SortRange(items, fromIndex, midIndex, comp);
+            SortRange(items, fromIndex, midIndex + 1, comp);
             SortRange(items, midIndex + 1, toIndex, comp);
 
             Merge(items, fromIndex, midIndex, toIndex, comp);
@@ -22,7 +22,7 @@ namespace NDS.Algorithms.Sorting
 
         /// <summary>
         /// Merges two sorted segments of an array in place. The first range is [fromIndex..midIndex]
-        /// and the second [midIndex + 1..toIndx].
+        /// and the second [midIndex + 1..toIndx).
         /// </summary>
         /// <typeparam name="T">The element type of the array.</typeparam>
         /// <param name="items">The array to merge.</param>
@@ -32,7 +32,7 @@ namespace NDS.Algorithms.Sorting
         /// <param name="comp">Comparer for array elements.</param>
         private static void Merge<T>(T[] items, int fromIndex, int midIndex, int toIndex, IComparer<T> comp)
         {
-            int rangeLen = toIndex - fromIndex + 1;
+            int rangeLen = IntRange.RangeCount(fromIndex, toIndex);
             T[] tmp = new T[rangeLen];
             for (int i = 0, l = fromIndex, r = midIndex + 1; i < tmp.Length; ++i)
             {
@@ -42,7 +42,7 @@ namespace NDS.Algorithms.Sorting
                     tmp[i] = items[r];
                     ++r;
                 }
-                else if (r > toIndex)
+                else if (r >= toIndex)
                 {
                     //finished merging right so copy from left
                     tmp[i] = items[l];

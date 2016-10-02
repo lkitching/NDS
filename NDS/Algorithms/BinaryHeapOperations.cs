@@ -53,19 +53,19 @@ namespace NDS.Algorithms
             Contract.Requires(rootIndex >= 0);
             Contract.Requires(endIndex < items.Length);
             Contract.Requires(nodeIndex >= rootIndex);
-            Contract.Requires(nodeIndex <= endIndex);
+            Contract.Requires(nodeIndex < endIndex);
 
             int currentIndex = nodeIndex;
             while (true)
             {
                 int leftChildIndex = rootIndex + ((currentIndex - rootIndex) * 2) + 1;
-                if (leftChildIndex > endIndex) break;
+                if (leftChildIndex >= endIndex) break;
 
                 int rightChildIndex = leftChildIndex + 1;
 
                 //find the index of the minimum child
                 int minChildIndex = leftChildIndex;
-                if (rightChildIndex <= endIndex)
+                if (rightChildIndex < endIndex)
                 {
                     T leftChild = items[leftChildIndex];
                     T rightChild = items[rightChildIndex];
