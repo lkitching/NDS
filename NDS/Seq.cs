@@ -25,5 +25,40 @@ namespace NDS
                 current = next(current);
             }
         }
+
+        /// <summary>Returns whether the input sequence is sorted in ascending order.</summary>
+        /// <typeparam name="T">The items of the input sequence.</typeparam>
+        /// <param name="seq">The input sequence.</param>
+        /// <returns>Whether <paramref name="seq"/> is in ascending order by the natural comparison on <typeparamref name="T"/>.</returns>
+        public static bool IsSorted<T>(this IEnumerable<T> seq) where T : IComparable<T>
+        {
+            return IsSortedBy(seq, Comparer<T>.Default);
+        }
+
+        /// <summary>Returns whether the input sequence is in ascending order according to the given comparer.</summary>
+        /// <typeparam name="T">The type of items in the sequence.</typeparam>
+        /// <param name="seq">The input sequence.</param>
+        /// <param name="comp">Comparer for the items of <paramref name="seq"/>.</param>
+        /// <returns>Whether <paramref name="seq"/> is ordered in ascending order according to <paramref name="comp"/>.</returns>
+        public static bool IsSortedBy<T>(this IEnumerable<T> seq, IComparer<T> comp)
+        {
+            using (var enumerator = seq.GetEnumerator())
+            {
+                if (enumerator.MoveNext())
+                {
+                    T prev = enumerator.Current;
+                    while(enumerator.MoveNext())
+                    {
+                        T current = enumerator.Current;
+                        if (comp.Compare(prev, current) > 0) return false;
+
+                        prev = current;
+                    }
+
+                    return true;
+                }
+                else return true;
+            }
+        }
     }
 }

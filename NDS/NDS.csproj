@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\Graphs\IMinimumSpanningTreeAlgorithm.cs" />
+    <Compile Include="Algorithms\Sorting\CountingSort.cs" />
     <Compile Include="GapBuffer.cs" />
     <Compile Include="Graphs\IEdge.cs" />
     <Compile Include="Graphs\IGraph.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="IQueue.cs" />
     <Compile Include="IRemovable.cs" />
     <Compile Include="IStack.cs" />
+    <Compile Include="KeyComparer.cs" />
     <Compile Include="LexicographicComparer.cs" />
     <Compile Include="Maybe.cs" />
     <Compile Include="Predicates.cs" />

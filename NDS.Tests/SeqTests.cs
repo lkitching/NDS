@@ -27,5 +27,33 @@ namespace NDS.Tests
             var seq = Seq.IterateWhile(10, i => i < 10, i => i * 2);
             CollectionAssert.IsEmpty(seq);
         }
+
+        [Test]
+        public void ShouldBeSortedBy()
+        {
+            var items = new[] { "a", "b", "aa", "bbb", "ccc", "dddddd", "eeeeeeeeee" };
+            Assert.IsTrue(items.IsSortedBy(ByLength));
+        }
+
+        [Test]
+        public void EmptySequenceShouldBeSortedBy()
+        {
+            Assert.IsTrue(Enumerable.Empty<string>().IsSortedBy(ByLength));
+        }
+
+        [Test]
+        public void SingletonSequenceShouldBeSortedBy()
+        {
+            Assert.IsTrue(new[] { "aaaaa" }.IsSortedBy(ByLength));
+        }
+
+        [Test]
+        public void ShouldNotBeSortedBy()
+        {
+            var items = new[] { "a", "bbbb", "cc", "ddddd" };
+            Assert.IsFalse(items.IsSortedBy(ByLength));
+        }
+
+        private static KeyComparer<string, int> ByLength = KeyComparer.Create((string s) => s.Length);
     }
 }
