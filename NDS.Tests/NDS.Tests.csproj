@@ -66,6 +66,7 @@
     <Compile Include="Algorithms\Graphs\MinimumSpanningTreeAlgorithmTest.cs" />
     <Compile Include="Algorithms\Graphs\PrimsAlgorithmTests.cs" />
     <Compile Include="Algorithms\Sorting\CountingSortTests.cs" />
+    <Compile Include="Algorithms\Sorting\RadixSortTests.cs" />
     <Compile Include="Algorithms\Sorting\ThreeWayPartitionTests.cs" />
     <Compile Include="GapBufferTests.cs" />
     <Compile Include="Graphs\AdjacencyListGraphTests.cs" />
