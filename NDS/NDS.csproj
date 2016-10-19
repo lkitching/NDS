@@ -44,6 +44,7 @@
     <Compile Include="Algorithms\Sorting\IByteAddressable.cs" />
     <Compile Include="Algorithms\Sorting\IRadixSort.cs" />
     <Compile Include="Algorithms\Sorting\LSDRadixSortcs.cs" />
+    <Compile Include="Algorithms\Sorting\Median.cs" />
     <Compile Include="Algorithms\Sorting\MSDRadixSort.cs" />
     <Compile Include="Algorithms\Sorting\ThreeWayPartition.cs" />
     <Compile Include="GapBuffer.cs" />

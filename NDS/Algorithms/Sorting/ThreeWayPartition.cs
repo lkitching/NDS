@@ -18,6 +18,8 @@ namespace NDS.Algorithms.Sorting
 
     public static class ThreeWayPartition
     {
+        
+
         /// <summary>
         /// Chooses a pivot element in the range [fromIndex, toIndex) of an input array and partitions it into three: items less than, equal to 
         /// and greater than the pivot. The return value indicates the start and end of the equal partition within the partition range. This should
@@ -38,8 +40,7 @@ namespace NDS.Algorithms.Sorting
         {
             if (IntRange.RangeCount(fromIndex, toIndex) <= 1) return new ThreeWayPartitionResult(fromIndex, toIndex);
 
-            //TODO: find better pivot
-            int pivotIndex = IntRange.RangeMidpoint(fromIndex, toIndex);
+            int pivotIndex = Median.EstimateMedianIndex(items, fromIndex, toIndex, comp);
             T pivot = items[pivotIndex];
 
             //move pivot into left-hand equal partition
