@@ -58,7 +58,6 @@
     <Compile Include="Algorithms\Graphs\PrimsAlgorithm.cs" />
     <Compile Include="Algorithms\Searching\BinarySearch.cs" />
     <Compile Include="Algorithms\Searching\BinarySearchResult.cs" />
-    <Compile Include="Algorithms\Searching\Enumerable.cs" />
     <Compile Include="Algorithms\Sorting\BubbleSort.cs" />
     <Compile Include="Algorithms\Sorting\HeapSort.cs" />
     <Compile Include="Algorithms\Sorting\IInPlaceSort.cs" />
