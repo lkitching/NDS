@@ -68,6 +68,7 @@
     <Compile Include="Algorithms\Sorting\CountingSortTests.cs" />
     <Compile Include="Algorithms\Sorting\RadixSortTests.cs" />
     <Compile Include="Algorithms\Sorting\ThreeWayPartitionTests.cs" />
+    <Compile Include="DigitalSearchTreeTests.cs" />
     <Compile Include="GapBufferTests.cs" />
     <Compile Include="Graphs\AdjacencyListGraphTests.cs" />
     <Compile Include="Algorithms\Searching\BinarySearchTests.cs" />

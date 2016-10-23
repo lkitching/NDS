@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bit.cs" />
+    <Compile Include="IBitAddressable.cs" />
     <Compile Include="Algorithms\Graphs\IMinimumSpanningTreeAlgorithm.cs" />
     <Compile Include="Algorithms\Sorting\CountingSort.cs" />
     <Compile Include="Algorithms\Sorting\IByteAddressable.cs" />
@@ -47,6 +49,7 @@
     <Compile Include="Algorithms\Sorting\Median.cs" />
     <Compile Include="Algorithms\Sorting\MSDRadixSort.cs" />
     <Compile Include="Algorithms\Sorting\ThreeWayPartition.cs" />
+    <Compile Include="DigitalSearchTree.cs" />
     <Compile Include="GapBuffer.cs" />
     <Compile Include="Graphs\IEdge.cs" />
     <Compile Include="Graphs\IGraph.cs" />
