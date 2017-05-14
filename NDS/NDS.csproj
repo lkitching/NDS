@@ -96,12 +96,14 @@
     <Compile Include="Graphs\WeightedUndirectedEdge.cs" />
     <Compile Include="HasWeightEqualityComparer.cs" />
     <Compile Include="IBinaryNode.cs" />
+    <Compile Include="IDisjointSet.cs" />
     <Compile Include="IHasNext.cs" />
     <Compile Include="IHasParent.cs" />
     <Compile Include="IHasPrevious.cs" />
     <Compile Include="IHasWeight.cs" />
     <Compile Include="IInsertable.cs" />
     <Compile Include="IMap.cs" />
+    <Compile Include="IntDisjointSet.cs" />
     <Compile Include="IntRange.cs" />
     <Compile Include="IPriorityQueue.cs" />
     <Compile Include="IQueue.cs" />

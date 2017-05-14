@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.Contracts;
 
 namespace NDS
 {
     /// <summary>Disjoint forest representation of a disjoint set.</summary>
     /// <typeparam name="T">The type of elements in the set.</typeparam>
-    public class ForestDisjointSet<T>
+    public class ForestDisjointSet<T> : IDisjointSet<T>
     {
         private readonly IEqualityComparer<T> comparer;
         private readonly ClosedAddressingHashTable<T, ForestDisjointSetTreeNode<T>> nodes;
@@ -45,13 +44,7 @@ namespace NDS
             }
         }
 
-        /// <summary>
-        /// Finds the representative member of the set containing <paramref name="item"/> if it is contained in any of the sets.
-        /// </summary>
-        /// <param name="item">The item to find.</param>
-        /// <returns>
-        /// The representative member of the set containing <paramref name="item"/> or None if <paramref name="item"/> is not in any of the sets.
-        /// </returns>
+        /// <see cref="IDisjointSet{T}.FindRepresentative(T)"/> 
         public Maybe<T> FindRepresentative(T item)
         {
             ForestDisjointSetTreeNode<T> representativeNode = FindRepresentativeNode(item);
@@ -89,13 +82,7 @@ namespace NDS
             else return repNode;
         }
 
-        /// <summary>
-        /// Merges the two sets containing <paramref name="x"/> and <paramref name="y"/>. 
-        /// After this operation both items will have the same representative.
-        /// </summary>
-        /// <param name="x">First item.</param>
-        /// <param name="y">Second item.</param>
-        /// <exception cref="ArgumentException">If either <paramref name="x"/> or <paramref name="y"/> do not exist in any set.</exception>
+        /// <see cref="IDisjointSet{T}.Merge(T, T)"/> 
         public void Merge(T x, T y)
         {
             var xRepNode = FindRequiredRepresentativeNode(x);
