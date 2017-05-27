@@ -114,6 +114,7 @@
     <Compile Include="Maybe.cs" />
     <Compile Include="Predicates.cs" />
     <Compile Include="RandomisedBinarySearchTree.cs" />
+    <Compile Include="RangeRelationship.cs" />
     <Compile Include="RedBlackNode.cs" />
     <Compile Include="RedBlackTree.cs" />
     <Compile Include="RedBlackTreeOps.cs" />

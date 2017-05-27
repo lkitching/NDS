@@ -17,6 +17,9 @@ namespace NDS
         /// <param name="end">Exclusive end element of the range.</param>
         public IntRange(int start, int end): this()
         {
+            if (end < start) throw new ArgumentException("Range end must be >= start");
+            Contract.EndContractBlock();
+
             this.Start = start;
             this.End = end;
         }
@@ -33,6 +36,38 @@ namespace NDS
             get { return RangeIsEmpty(this.Start, this.End); }
         }
 
+        /// <summary>Gets the relationship of the given range to this range.</summary>
+        /// <param name="other">The other range.</param>
+        /// <returns>A <see cref="RangeRelationship"/> describing the relationship of <paramref name="other"/> to this range.</returns>
+        public RangeRelationship GetRelationshipOf(IntRange other)
+        {
+            if(other.Start < this.Start)
+            {
+                //NOTE: other.End is not member of range defined by other
+                if (other.End <= this.Start) return RangeRelationship.Before;
+                else if (other.End < this.End) return RangeRelationship.OverlapsStart;
+                else return RangeRelationship.Encloses;
+            }
+            else if(other.Start == this.Start)
+            {
+                if (other.End < this.End) return RangeRelationship.Within;
+                else if (other.End == this.End) return RangeRelationship.Equal;
+                else return RangeRelationship.Encloses;
+            }
+            else
+            {
+                //NOTE: this.End is not a member of range defined by this
+                if (other.Start >= this.End) return RangeRelationship.After;
+                else if (other.End <= this.End) return RangeRelationship.Within;
+                else return RangeRelationship.OverlapsEnd;
+            }
+        }
+
+        /// <summary>
+        /// Whether this range is contained within a given range i.e. if GetRelationshipOf(other) is Encloses or Equal.
+        /// </summary>
+        /// <param name="other">The range to compare to this range.</param>
+        /// <returns>Whether this range is contained within <paramref name="other"/>.</returns>
         public bool IsContainedWithin(IntRange other)
         {
             return this.Start >= other.Start && this.End <= other.End;
