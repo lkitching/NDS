@@ -33,6 +33,11 @@ namespace NDS
             get { return RangeIsEmpty(this.Start, this.End); }
         }
 
+        public bool IsContainedWithin(IntRange other)
+        {
+            return this.Start >= other.Start && this.End <= other.End;
+        }
+
         /// <summary>Returns whether the range [start, end) is empty.</summary>
         /// <param name="start">Start of the range.</param>
         /// <param name="end">Exclusive end element of the range.</param>
@@ -147,6 +152,12 @@ namespace NDS
         public override int GetHashCode()
         {
             return this.Start + 17 * this.End;
+        }
+
+        public override string ToString()
+        {
+            if (this.IsEmpty) return string.Format("({0}, {0}]", this.Start);
+            else return string.Format("({0}, {1}]", this.Start, this.End);
         }
     }
 }

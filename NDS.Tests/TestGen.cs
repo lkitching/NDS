@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using FsCheck;
 
 namespace NDS.Tests
 {
@@ -10,9 +11,9 @@ namespace NDS.Tests
         /// <summary>Generates a sequence of random ints from the given generator.</summary>
         /// <param name="random">The generator.</param>
         /// <returns>An infinite sequences of random ints generated from <paramref name="random"/>.</returns>
-        public static IEnumerable<int> RandomInts(Random random = null)
+        public static IEnumerable<int> RandomInts(System.Random random = null)
         {
-            random = random ?? new Random();
+            random = random ?? new System.Random();
             return Generate(random, r => r.Next());
         }
 
@@ -21,9 +22,9 @@ namespace NDS.Tests
         /// <param name="maxCount">The maximum number of numbers to generate.</param>
         /// <param name="random">Random generator.</param>
         /// <returns>A sequence of between <paramref name="minCount"/> and <paramref name="maxCount"/> random ints.</returns>
-        public static IEnumerable<int> NRandomInts(int minCount, int maxCount, Random random = null)
+        public static IEnumerable<int> NRandomInts(int minCount, int maxCount, System.Random random = null)
         {
-            random = random ?? new Random();
+            random = random ?? new System.Random();
             int count = random.Next(minCount, maxCount + 1);
             return RandomInts(random).Take(count);
         }
@@ -33,7 +34,7 @@ namespace NDS.Tests
         /// <param name="r">Random generator for the sequence.</param>
         /// <param name="gen">Used to generate the next item in the sequence using the random source.</param>
         /// <returns>An inifinite sequence of items generated from <paramref name="gen"/>.</returns>
-        public static IEnumerable<T> Generate<T>(Random r, Func<Random, T> gen)
+        public static IEnumerable<T> Generate<T>(System.Random r, Func<System.Random, T> gen)
         {
             while (true)
             {
@@ -44,10 +45,25 @@ namespace NDS.Tests
         /// <summary>Generates a random bool.</summary>
         /// <param name="r">Generator used to generate the result.</param>
         /// <returns>A bool generated randomly using <paramref name="r"/>.</returns>
-        public static bool RandomBool(Random r = null)
+        public static bool RandomBool(System.Random r = null)
         {
-            r = r ?? new Random();
+            r = r ?? new System.Random();
             return r.Next() % 2 == 0;
+        }
+
+        public static Gen<T[]> ArrayOf<T>(Gen<T> gen)
+        {
+            return Gen.ListOf(gen).Select(l => l.ToArray());
+        }
+
+        public static Gen<T[]> ArrayOf<T>(int n, Gen<T> gen)
+        {
+            return Gen.ListOf(n, gen).Select(l => l.ToArray());
+        }
+
+        public static Gen<T[]> NonEmptyArrayOf<T>(Gen<T> gen)
+        {
+            return Gen.NonEmptyListOf(gen).Select(l => l.ToArray());
         }
     }
 }

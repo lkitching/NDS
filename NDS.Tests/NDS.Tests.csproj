@@ -99,6 +99,7 @@
     <Compile Include="RandomisedBinarySearchTreeTests.cs" />
     <Compile Include="RedBlackTreeOpsTests.cs" />
     <Compile Include="RedBlackTreeTests.cs" />
+    <Compile Include="SegmentTreeTests.cs" />
     <Compile Include="SeqTests.cs" />
     <Compile Include="SinglyLinkedListCollectionTests.cs" />
     <Compile Include="SinglyLinkedListNodeTests.cs" />

@@ -118,6 +118,7 @@
     <Compile Include="RedBlackTree.cs" />
     <Compile Include="RedBlackTreeOps.cs" />
     <Compile Include="Require.cs" />
+    <Compile Include="SegmentTree.cs" />
     <Compile Include="Seq.cs" />
     <Compile Include="SinglyLinkedList.cs" />
     <Compile Include="SinglyLinkedListCollection.cs" />
