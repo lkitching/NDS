@@ -55,6 +55,7 @@
     <Compile Include="QueueTests.fs" />
     <Content Include="App.config" />
     <Content Include="packages.config" />
+    <Compile Include="DListTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FsCheck">

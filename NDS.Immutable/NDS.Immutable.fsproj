@@ -53,6 +53,7 @@
     <Compile Include="BinomialHeap.fs" />
     <Compile Include="Rope.fs" />
     <Compile Include="Queue.fs" />
+    <Compile Include="DList.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
