@@ -36,7 +36,7 @@ namespace NDS.Algorithms.Sorting
         /// <returns>
         /// A <see cref="ThreeWayPartitionResult"/> which indicates the range of the three partitions within <paramref name="items"/>.
         /// </returns>
-        public static ThreeWayPartitionResult Partition<T>(T[] items, int fromIndex, int toIndex, IComparer<T> comp)
+        public static ThreeWayPartitionResult Partition<T>(IList<T> items, int fromIndex, int toIndex, IComparer<T> comp)
         {
             if (IntRange.RangeCount(fromIndex, toIndex) <= 1) return new ThreeWayPartitionResult(fromIndex, toIndex);
 

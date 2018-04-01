@@ -58,6 +58,7 @@
     <Compile Include="Algorithms\Graphs\KruskalsAlgorithmTest.cs" />
     <Compile Include="Algorithms\Graphs\MinimumSpanningTreeAlgorithmTest.cs" />
     <Compile Include="Algorithms\Graphs\PrimsAlgorithmTests.cs" />
+    <Compile Include="Algorithms\Searching\QuickSelectTests.cs" />
     <Compile Include="Algorithms\Sorting\CountingSortTests.cs" />
     <Compile Include="Algorithms\Sorting\RadixSortTests.cs" />
     <Compile Include="Algorithms\Sorting\ThreeWayPartitionTests.cs" />

@@ -13,7 +13,7 @@ namespace NDS.Algorithms.Sorting
         /// <param name="k">Third index</param>
         /// <param name="comp">Comparer for items.</param>
         /// <returns>Returns the index of the median of items[i], items[j] and items[k] according to <paramref name="comp"/>.</returns>
-        public static int MedianIndex<T>(T[] items, int i, int j, int k, IComparer<T> comp)
+        public static int MedianIndex<T>(IList<T> items, int i, int j, int k, IComparer<T> comp)
         {
             if (comp.Compare(items[i], items[j]) < 0)
             {
@@ -54,7 +54,7 @@ namespace NDS.Algorithms.Sorting
         /// <param name="toIndex">Exclusive end index of the range to search.</param>
         /// <param name="comp">Comparer for items.</param>
         /// <returns></returns>
-        public static int EstimateMedianIndex<T>(T[] items, int fromIndex, int toIndex, IComparer<T> comp)
+        public static int EstimateMedianIndex<T>(IList<T> items, int fromIndex, int toIndex, IComparer<T> comp)
         {
             Contract.Requires(items != null);
             Contract.Ensures(Contract.Result<int>() >= fromIndex && Contract.Result<int>() < toIndex);

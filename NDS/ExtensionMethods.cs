@@ -54,7 +54,7 @@ namespace NDS
             return comparer.Compare(x, y).ToComparisonResult();
         }
 
-        public static void SwapIndexed<T>(this T[] items, int i, int j)
+        public static void SwapIndexed<T>(this IList<T> items, int i, int j)
         {
             T tmp = items[i];
             items[i] = items[j];
